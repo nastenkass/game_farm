@@ -1,0 +1,11 @@
+{
+	"street" : {
+		"name":"Аптека",
+    	"image":"img/back1.jpeg"
+    },
+
+	"farm" : {
+		"name":"Аптека",
+    	"image":"img/back1.png"
+    }
+}

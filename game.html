@@ -1,0 +1,56 @@
+<html>
+<head>
+	<meta charset="utf8"/>
+
+  <link href='https://fonts.googleapis.com/css?family=Nunito:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" type='text/css'>
+
+  <link href="css/reset.css" rel="stylesheet">
+  <link href="css/game.css" rel="stylesheet">
+  <link href="css/ui.css" rel="stylesheet">
+  <link href="css/scene.css" rel="stylesheet">
+
+</head>
+<body>
+
+
+    <div id="overlay" class="overlay"></div>
+    <!-- Попап с возможностью перезапустить уровень -->
+    <div id="popup" class="popup">
+      <p>Игра окончена. Хотите попробовать снова?</p>
+      <button id="restartButton" class="restart-button">Перезапустить уровень</button>
+    </div>
+    <div class="answer-state answer-state-shadow">
+    <div id="container">
+      
+      <div id="sceneContent">
+        <div id="pc">
+          <img src="img/pc.png" alt="">
+        </div>
+      </div>
+
+      <div id="timerCounter">
+        Время: 10м 0с
+      </div>
+
+      <div id="choices">
+        <div id="characterName"></div>
+      </div>
+    </div>
+
+
+</body>
+
+<script src="js/jquery-3.0.0.min.js"></script>
+<script src="js/yarn-parser.js"></script>
+<script src="js/custom-conditions.js"></script>
+<script src="js/conditions.js"></script>
+<script src="js/custom-actions.js"></script>
+<script src="js/actions.js"></script>
+<script src="js/custom-display.js"></script>
+<script src="js/display.js"></script>
+<script src="data/processed-data.js"></script>
+<script src="js/main.js"></script>
+
+</html>

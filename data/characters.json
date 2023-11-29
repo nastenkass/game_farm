@@ -1,0 +1,16 @@
+{
+  "default":{
+    "poses":{
+    },
+    "name":"Фармацевт"
+  },
+
+  "sick1":{
+    "poses":{
+      "default":"img/woman1.png",
+      "angry":"img/VN_chara001_neutral.png",
+      "ok": "img/VN_chara001_happy.png"
+    },
+    "name":"Пациентка"
+  }
+}
