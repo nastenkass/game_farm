@@ -38,14 +38,6 @@ function onSceneDisplayed(scene) {
 
 //////////////////////////////////
 
-function partial(fn /*, args...*/) {
-    var args = Array.prototype.slice.call(arguments, 1);
-    return function() {
-        var remainingArgs = Array.prototype.slice.call(arguments);
-        return fn.apply(this, args.concat(remainingArgs));
-    };
-}
-
 var pdfViewer = null;
 
 function openFilePopup(filePath) {
@@ -65,32 +57,41 @@ function openFilePopup(filePath) {
         $('#filePopup').fadeIn();
 
         pdfjsLib.getDocument(filePath).promise.then(function(pdfDoc) {
-            pdfViewer = pdfDoc.getPage(1).then(function(page) {
-                var canvas = document.createElement('canvas');
-                var pdfContainer = document.getElementById('pdfContainer');
-                pdfContainer.innerHTML = '';
-                pdfContainer.appendChild(canvas);
+            pdfViewer = pdfDoc;
 
-                var context = canvas.getContext('2d');
-                var viewport = page.getViewport({ scale: 1 });
+            var pdfContainer = document.getElementById('pdfContainer');
+            pdfContainer.innerHTML = '';
 
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
+            for (var pageNumber = 1; pageNumber <= pdfDoc.numPages; pageNumber++) {
+                pdfDoc.getPage(pageNumber).then(function(page) {
+                    var canvas = document.createElement('canvas');
+                    pdfContainer.appendChild(canvas);
 
-                var renderContext = {
-                    canvasContext: context,
-                    viewport: viewport
-                };
+                    var context = canvas.getContext('2d');
+                    var viewport = page.getViewport({ scale: 1 });
 
-                page.render(renderContext);
-            }).catch(function(error) {
-                console.error('Ошибка при загрузке страницы PDF:', error);
-            });
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+
+                    page.render(renderContext);
+                }).catch(function(error) {
+                    console.error('Ошибка при загрузке страницы PDF:', error);
+                });
+            }
+
+            // Сброс скролла вверх
+            pdfContainer.scrollTop = 0;
         }).catch(function(error) {
             console.error('Ошибка при загрузке PDF:', error);
         });
     }
 }
+
 
 function closeFilePopup() {
     $('#filePopup').fadeOut();
@@ -103,16 +104,16 @@ function closeFilePopup() {
 
 // Массив с парами "название файла" и "путь"
 var files = [
-    { name: 'Файл 1', path: 'files/afobazol.pdf' },
-    { name: 'Файл 2', path: 'files/amiksin.pdf' },
-    { name: 'Файл 3', path: 'files/atoris.pdf' },
-    { name: 'Файл 4', path: 'files/fitolizin.pdf' },
-    { name: 'Файл 5', path: 'files/glukofazhlong.pdf' },
-    { name: 'Файл 6', path: 'files/noshpa.pdf' },
-    { name: 'Файл 7', path: 'files/nurofen_forte.pdf' },
-    { name: 'Файл 8', path: 'files/pantenol.pdf' },
-    { name: 'Файл 9', path: 'files/supradin.pdf' },
-    { name: 'Файл 10', path: 'files/tizin_alerdzhi.pdf' },
+    { name: 'Афобазол', path: 'files/afobazol.pdf' },
+    { name: 'Амиксин', path: 'files/amiksin.pdf' },
+    { name: 'Аторис', path: 'files/atoris.pdf' },
+    { name: 'Фитолизин', path: 'files/fitolizin.pdf' },
+    { name: 'Глюкофаж лонг', path: 'files/glukofazhlong.pdf' },
+    { name: 'Но-шпа', path: 'files/noshpa.pdf' },
+    { name: 'Нурофен форте', path: 'files/nurofen_forte.pdf' },
+    { name: 'Пантенол', path: 'files/pantenol.pdf' },
+    { name: 'Супрадин', path: 'files/supradin.pdf' },
+    { name: 'Тизин алерджи', path: 'files/tizin_alerdzhi.pdf' },
     // Добавьте другие файлы с соответствующими названиями и путями
 ];
 
