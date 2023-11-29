@@ -5,7 +5,7 @@ var characters = {};
 var places = {};
 var variables = {};
 
-//Clears the scene, removing every choice and character elemnt that was added in the previous scene
+//Очищает сцену, удаляя все элементы выбора и персонажа, которые были добавлены в предыдущей сцене.
 function clearScene()
 {
 	$(".choice").remove();
@@ -14,9 +14,9 @@ function clearScene()
 
 function displayCharacter(characterData)
 {
-  //characterData only contains a character id and a pose
-  //The actual images and names are in the characters dictionary
-  //If the given key does not exist, throw an error and revert to the default character instead.
+  //characterData содержит только идентификатор персонажа и позу
+//Фактические изображения и имена находятся в словаре символов.
+//Если данный ключ не существует, выдать ошибку и вместо этого вернуться к символу по умолчанию.
   if(!(characterData.id in characters))
   {
     console.error("Character "+characterData.id+" does not exist.");
@@ -25,23 +25,23 @@ function displayCharacter(characterData)
   }
   var character = characters[characterData.id];
 
-  //Display the name of the character
+  //Отображение имени персонажа
 	$("#characterName").html(character.name);
 
-  //Set the character and pose attributes of the container so that custom CSS rules can be applied
+  //Установите атрибуты персонажа и позы контейнера, чтобы можно было применять собственные правила CSS.
   $("#container").attr("character", characterData.id);
   $("#container").attr("pose", characterData.pose);
 
-  //the "hidden" pose simply means the character is hidden and there's nothing to display
+  //«Скрытая» поза просто означает, что персонаж скрыт и отображать нечего.
   if(characterData.pose != "hidden")
   {
-    //Create a character element and set its background before adding it to the scene
+    //Создайте элемент персонажа и установите его фон перед добавлением его в сцену.
     var characterElement = $("<div class='character'></div>");
     characterElement.css({"background-image": "url('"+character.poses[characterData.pose]+"')"});
     $("#sceneContent").append(characterElement);  
   }
 
-  //Custom code that executes after showing a character be called now
+  //Пользовательский код, который выполняется после показа символа, будет вызываться сейчас.
   onCharacterDisplayed(character);
 }
 
@@ -95,8 +95,8 @@ function displayChoices(choices) {
 
 function displayPlace(placeId)
 {
-  //The actual images and names are in the places dictionary
-  //If the given key does not exist, throw an error and exit the function.
+  //Фактические изображения и имена находятся в словаре мест.
+//Если данный ключ не существует, выдать ошибку и выйти из функции.
   if(!(placeId in places))
   {
     console.error("Place "+placeId+" does not exist.");
@@ -104,19 +104,18 @@ function displayPlace(placeId)
   }
   var place = places[placeId];
   
-  //Show its name
+  //Показать его имя
   $("#placeName").html(place.name);
-  //Set the place attribute in the container for custom CSS rules to apply
+  //Установите атрибут Place в контейнере для применения пользовательских правил CSS.
   $("#container").attr("place", placeId);
-  //Display the place's image as the background
+  //Отобразить изображение места в качестве фона
   displayBackground(place.image);
 
-  //Custom code that executes after changing places will be called now
+  //Пользовательский код, который выполняется после смены мест, теперь будет вызываться.
   onPlaceDisplayed(place);
 }
 
-//This could technically be called from an custom action,
-//to change the background without changing places for example?
+//Технически это можно вызвать из специального действия, например, для изменения фона без изменения места?
 function displayBackground(url)
 {
 	$("#sceneContent").css({"background":"url('"+url+"')"});
@@ -127,7 +126,7 @@ function displayScene(sceneId)
   //Clear the scene
 	clearScene();
 
-  //Custom code that executes after clearing the scene will be called now
+  //Пользовательский код, который выполняется после очистки сцены, теперь будет вызываться.
   onSceneCleared();
 
   //Checks if the scene we're trying to display actually exists?

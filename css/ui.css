@@ -119,3 +119,17 @@
 	left: 1300px;
 	top: 340px;
 }
+
+#pc img.highlight {
+    border: 2px solid yellow;
+    cursor: pointer;
+}
+
+#pc img.highlight:hover {
+    border: 2px solid orange; /* Любой желаемый стиль при наведении */
+}
+
+#pdfContainer {
+    max-height: 80vh; /* Максимальная высота контейнера в 80% от высоты видимой области экрана */
+    overflow-y: auto; /* Включаем вертикальную полосу прокрутки, если контент выходит за пределы контейнера */
+}

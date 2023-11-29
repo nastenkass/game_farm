@@ -36,6 +36,113 @@ function onSceneDisplayed(scene) {
     }
 }
 
+//////////////////////////////////
+
+function partial(fn /*, args...*/) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return function() {
+        var remainingArgs = Array.prototype.slice.call(arguments);
+        return fn.apply(this, args.concat(remainingArgs));
+    };
+}
+
+var pdfViewer = null;
+
+function openFilePopup(filePath) {
+    if (canClickComputer) {
+        if ($('#filePopup').length === 0) {
+            var popup = $('<div id="filePopup" class="popup">\
+                              <div id="pdfContainer"></div>\
+                              <button id="closePopup">Закрыть</button>\
+                              <div id="buttonContainer"></div>\
+                            </div>');
+
+            $('body').append(popup);
+
+            $('#closePopup').on('click', closeFilePopup);
+        }
+
+        $('#filePopup').fadeIn();
+
+        pdfjsLib.getDocument(filePath).promise.then(function(pdfDoc) {
+            pdfViewer = pdfDoc.getPage(1).then(function(page) {
+                var canvas = document.createElement('canvas');
+                var pdfContainer = document.getElementById('pdfContainer');
+                pdfContainer.innerHTML = '';
+                pdfContainer.appendChild(canvas);
+
+                var context = canvas.getContext('2d');
+                var viewport = page.getViewport({ scale: 1 });
+
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+
+                page.render(renderContext);
+            }).catch(function(error) {
+                console.error('Ошибка при загрузке страницы PDF:', error);
+            });
+        }).catch(function(error) {
+            console.error('Ошибка при загрузке PDF:', error);
+        });
+    }
+}
+
+function closeFilePopup() {
+    $('#filePopup').fadeOut();
+
+    if (pdfViewer !== null) {
+        pdfViewer.destroy();
+        pdfViewer = null;
+    }
+}
+
+// Массив с парами "название файла" и "путь"
+var files = [
+    { name: 'Файл 1', path: 'files/afobazol.pdf' },
+    { name: 'Файл 2', path: 'files/amiksin.pdf' },
+    { name: 'Файл 3', path: 'files/atoris.pdf' },
+    { name: 'Файл 4', path: 'files/fitolizin.pdf' },
+    { name: 'Файл 5', path: 'files/glukofazhlong.pdf' },
+    { name: 'Файл 6', path: 'files/noshpa.pdf' },
+    { name: 'Файл 7', path: 'files/nurofen_forte.pdf' },
+    { name: 'Файл 8', path: 'files/pantenol.pdf' },
+    { name: 'Файл 9', path: 'files/supradin.pdf' },
+    { name: 'Файл 10', path: 'files/tizin_alerdzhi.pdf' },
+    // Добавьте другие файлы с соответствующими названиями и путями
+];
+
+// Добавляем обработчик событий для нажатия на изображение внутри #pc
+$('#pc').on('click', function() {
+    // При нажатии вызываем функцию открытия попапа с первым файлом
+    openFilePopup(files[0].path);
+
+    // Добавляем динамически кнопки внутри контейнера #buttonContainer
+    var buttonContainer = $('#buttonContainer');
+    buttonContainer.html(''); // Очищаем контейнер перед добавлением новых кнопок
+
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        var button = $('<button class="fileButton">' + file.name + '</button>');
+
+        // Используем замыкание для правильного захвата значения переменной file
+        (function(filePath) {
+            button.on('click', function() {
+                openFilePopup(filePath);
+            });
+        })(file.path);
+
+        buttonContainer.append(button);
+    }
+});
+
+
+//////////////////////////
+
 function startTimer() {
     timerInterval = setInterval(function () {
         var currentTime = new Date().getTime();

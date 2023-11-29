@@ -20,11 +20,6 @@ var checkAnswer = function(condition) {
     return true;
 }
 
-var userTest = function(condition) {
-    colorAnswer1(condition);
-    return true;
-}
-
 function colorAnswer1(number) {
     var element = $(".answer-state");
     var colorMap = {
@@ -81,15 +76,27 @@ function colorAnswer1(number) {
     });
 }
 
-var turnOnComputer = function(condition){
-    
+function enableComputerClick(number) {
+    if (number === 1) {
+        canClickComputer = true;
+        $('#pc img').addClass('highlight');
+    } else {
+        canClickComputer = false;
+        $('#pc img').finish().removeClass('highlight');
+    }
+}
+
+var turnOnComputer = function (condition) {
+    number = parseInt(condition.options[0]);
+    enableComputerClick(number);
+    return true;
 }
 
 //A dictionary of all the known custom conditions, and the function they use to be evaluated.
 //Don't forget to add your own "name":function pairs here, too!
 var customConditions = {
-  "random":evaluateRandomCondition,
-  "check_answer":checkAnswer,
-  "turn_on_pc":turnOnComputer,
+  "random": evaluateRandomCondition,
+  "check_answer": checkAnswer,
+  "turn_on_pc": turnOnComputer,
   /* "custom":myCustomCondition, */
 };
