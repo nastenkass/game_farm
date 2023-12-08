@@ -43,3 +43,24 @@ h1
 	top:150px;
 	background-repeat:no-repeat;
 }
+
+/* shelf */
+
+#shelfPopup {
+    width: 60%;
+    height: 85%;
+    background-size: cover;
+    border: 2px solid #333; /* Цвет и толщина границы */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Тень */
+}
+
+.medicines {
+    position: absolute; /* Позиционируем внутри #shelfPopup */
+}
+
+.medicationImage {
+    width: auto;
+    height: 80px; /* Автоматическая высота для сохранения пропорций */
+    cursor: pointer; /* Изменение курсора при наведении */
+    margin: 5px; /* Внешний отступ между изображениями */
+}

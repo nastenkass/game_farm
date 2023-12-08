@@ -141,8 +141,113 @@ $('#pc').on('click', function() {
     }
 });
 
+////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////
+function openShelfPopup() {
+    if ($('#shelfPopup').length === 0) {
+        var popup = $('<div id="shelfPopup" class="popup">\
+                          <div id="shelfContainer"></div>\
+                          <button id="closeShelfPopup">Закрыть</button>\
+                      </div>');
+
+        $('body').append(popup);
+
+        // Добавляем фоновую картинку
+        popup.css({
+            'background-image': 'url(medicines/shelf.png)',
+        });
+
+        $('#closeShelfPopup').on('click', closeShelfPopup);
+    }
+
+    $('#shelfPopup').fadeIn();
+
+    // Генерируем полки с препаратами
+    generateShelves();
+}
+
+
+
+// Добавьте новую функцию для закрытия попапа с полками
+function closeShelfPopup() {
+    $('#shelfPopup').fadeOut();
+}
+
+function generateShelves() {
+    var shelfPopup = $('#shelfPopup');
+    shelfPopup.html('');
+
+    var medications = [
+        { name: 'аквамарис', image: 'medicines/аквамарис.png', description: 'Описание препарата 1' },
+        { name: 'амиксин', image: 'medicines/амиксин.png', description: 'Описание препарата 1'  },
+        { name: 'виферон', image: 'medicines/виферон.png', description: 'Описание препарата 1'  },
+        { name: 'кеторол-экспресс', image: 'medicines/кеторол_экспресс.png', description: 'Описание препарата 1' },
+        { name: 'аторис', image: 'medicines/аторис.png', description: 'Описание препарата 1' },
+        { name: 'афобазол', image: 'medicines/афобазол.png', description: 'Описание препарата 1' },
+        { name: 'виброцил', image: 'medicines/виброцил.png', description: 'Описание препарата 1' },
+        { name: 'аторвастин', image: 'medicines/аторвастин.png', description: 'Описание препарата 1' },
+        { name: 'амоксиклав', image: 'medicines/амоксиклав.png', description: 'Описание препарата 1' },
+        // Добавьте другие препараты с соответствующими названиями и изображениями
+    ];
+
+    var shelfHeights = [295, 35, 35, 35];
+    var tooltipSize = '200px'; // Размер плашки подсказки
+
+    // Перемешиваем препараты
+    medications = shuffleArray(medications);
+
+    // Создаем четыре полки
+    for (var i = 0; i < 4; i++) {
+        var shelf = $('<div class="shelf"></div>');
+
+        // Устанавливаем фиксированное положение по оси Y
+        shelf.css('margin-top', shelfHeights[i] + 'px');
+
+        // Выбираем случайное количество препаратов для каждой полки (от 1 до 3, например)
+        var numberOfMedications = Math.floor(Math.random() * 100) + 1; ////////////////////// тут проблема? не все препараты высвечиваются //////////////
+
+        // Добавляем препараты на полку
+        for (var j = 0; j < numberOfMedications; j++) {
+            if (medications.length > 0) {
+                var medication = medications.pop();
+                var medicationImage = $('<img class="medicationImage" src="' + medication.image + '" alt="' + medication.name + '">');
+
+                // Устанавливаем случайное положение по оси X
+                medicationImage.css('left', Math.random() * 100 + '%');
+
+                // Добавляем всплывающую подсказку при наведении
+                var tooltip = $('<div class="tooltip">' + medication.description + '</div>');
+                tooltip.css('max-width', tooltipSize);
+                medicationImage.append(tooltip);
+
+                // Используйте замыкание для правильного захвата значения переменной medicationName
+                (function(medicationName) {
+                    medicationImage.on('click', function() {
+                        alert('Выбран препарат: ' + medicationName);
+                        // Здесь вы можете выполнить дополнительные действия при выборе препарата
+                    });
+                })(medication.name);
+
+                shelf.append(medicationImage);
+            }
+        }
+
+        // Добавляем полку на страницу
+        shelfPopup.append(shelf);
+    }
+}
+
+// Функция для случайного перемешивания массива
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
 
 function startTimer() {
     timerInterval = setInterval(function () {

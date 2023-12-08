@@ -20,6 +20,8 @@ var checkAnswer = function(condition) {
     return true;
 }
 
+//////////////////////////////////////////////////////////////////////////////
+
 function colorAnswer1(number) {
     var element = $(".answer-state");
     var colorMap = {
@@ -76,6 +78,8 @@ function colorAnswer1(number) {
     });
 }
 
+////////////////////////////////////////////////////////////////////////////////////
+
 function enableComputerClick(number) {
     if (number === 1) {
         canClickComputer = true;
@@ -92,11 +96,20 @@ var turnOnComputer = function (condition) {
     return true;
 }
 
+////////////////////////////////////////////////////////////////////////////////////
+
+var openShelf = function (condition) {
+    number = parseInt(condition.options[0]);
+    openShelfPopup();
+    return true;
+}
+
 //A dictionary of all the known custom conditions, and the function they use to be evaluated.
 //Don't forget to add your own "name":function pairs here, too!
 var customConditions = {
   "random": evaluateRandomCondition,
   "check_answer": checkAnswer,
   "turn_on_pc": turnOnComputer,
+  "shelf": openShelf,
   /* "custom":myCustomCondition, */
 };
