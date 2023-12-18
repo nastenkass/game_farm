@@ -143,39 +143,51 @@ $('#pc').on('click', function() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+
 function openShelfPopup() {
-    if ($('#shelfPopup').length === 0) {
-        var popup = $('<div id="shelfPopup" class="popup">\
-                          <div id="shelfContainer"></div>\
-                          <button id="closeShelfPopup">Закрыть</button>\
-                      </div>');
+    // Создаем оверлей
+    var overlay = $('<div id="overlay-shelf"></div>');
+    $('body').append(overlay);
 
-        $('body').append(popup);
+    // Создаем попап с полкой
+    var popup = $('<div id="shelfPopup" class="popup">\
+                      <div id="shelfContainer">\
+                          <div class="shelfContent"></div>\
+                      </div>\
+                      <button id="closeShelfPopup">Закрыть</button>\
+                  </div>');
+    
+    // Append the popup to the overlay, not the body
+    overlay.append(popup);
 
-        // Добавляем фоновую картинку
-        popup.css({
-            'background-image': 'url(medicines/shelf.png)',
-        });
+    // Добавляем кнопку закрытия в overlay-shelf
+    var closeBtn = $('<div class="close-btn">&#10006;</div>');
+    overlay.append(closeBtn);
 
-        $('#closeShelfPopup').on('click', closeShelfPopup);
-    }
+    // Добавляем фоновую картинку
+    popup.css({
+        'background-image': 'url(medicines/shelf.png)',
+    });
 
-    $('#shelfPopup').fadeIn();
+    // Добавляем обработчик для закрытия попапа
+    $('#closeShelfPopup, .close-btn').on('click', closeShelfPopup);
+
+    // Показываем оверлей и попап
+    overlay.fadeIn();
+    popup.fadeIn();
 
     // Генерируем полки с препаратами
     generateShelves();
 }
 
-
-
 // Добавьте новую функцию для закрытия попапа с полками
 function closeShelfPopup() {
+    $('#overlay-shelf').fadeOut();
     $('#shelfPopup').fadeOut();
 }
 
 function generateShelves() {
-    var shelfPopup = $('#shelfPopup');
-    shelfPopup.html('');
+    var shelfPopup = $('#shelfPopup .shelfContent'); // Используйте .shelfContent вместо .html('')
 
     var medications = [
         { name: 'аквамарис', image: 'medicines/аквамарис.png', description: 'Описание препарата 1' },
@@ -187,52 +199,92 @@ function generateShelves() {
         { name: 'виброцил', image: 'medicines/виброцил.png', description: 'Описание препарата 1' },
         { name: 'аторвастин', image: 'medicines/аторвастин.png', description: 'Описание препарата 1' },
         { name: 'амоксиклав', image: 'medicines/амоксиклав.png', description: 'Описание препарата 1' },
+        { name: 'берокка', image: 'medicines/берокка.png', description: 'Описание препарата 1' },
+        { name: 'бепантен', image: 'medicines/бепантен.png', description: 'Описание препарата 1' },
+        { name: 'банеоцин', image: 'medicines/банеоцин.png', description: 'Описание препарата 1' },
+        { name: 'капсикам', image: 'medicines/капсикам.png', description: 'Описание препарата 1' },
+        { name: 'канефрон', image: 'medicines/канефрон.png', description: 'Описание препарата 1' },
+        { name: 'ингавирин', image: 'medicines/ингавирин.png', description: 'Описание препарата 1' },
+        { name: 'мидокалм', image: 'medicines/мидокалм.png', description: 'Описание препарата 1' },
+        { name: 'метформин', image: 'medicines/метформин.png', description: 'Описание препарата 1' },
+        { name: 'иберогаст', image: 'medicines/иберогаст.png', description: 'Описание препарата 1' },
+        { name: 'гриппферон', image: 'medicines/гриппферон.png', description: 'Описание препарата 1' },
+        { name: 'пантенол', image: 'medicines/пантенол.png', description: 'Описание препарата 1' },
+        { name: 'но-шпа', image: 'medicines/но-шпа.png', description: 'Описание препарата 1' },
+        { name: 'мерифатин', image: 'medicines/мерифатин.png', description: 'Описание препарата 1' },
+        { name: 'нурофен', image: 'medicines/нурофен.png', description: 'Описание препарата 1' },
+        { name: 'масло_облепиховое', image: 'medicines/масло_облепиховое.png', description: 'Описание препарата 1' },
+        { name: 'сиофор', image: 'medicines/сиофор.png', description: 'Описание препарата 1' },
+        { name: 'глюкофаж', image: 'medicines/глюкофаж.png', description: 'Описание препарата 1' },
+        { name: 'вольтарен', image: 'medicines/вольтарен.png', description: 'Описание препарата 1' },
+        { name: 'лоратадин', image: 'medicines/лоратадин.png', description: 'Описание препарата 1' },
+        { name: 'лизобакт', image: 'medicines/лизобакт.png', description: 'Описание препарата 1' },
+        { name: 'липримар', image: 'medicines/липримар.png', description: 'Описание препарата 1' },
+        { name: 'супрадин', image: 'medicines/супрадин.png', description: 'Описание препарата 1' },
+        { name: 'тизин', image: 'medicines/тизин.png', description: 'Описание препарата 1' },
+        { name: 'найз_активгель', image: 'medicines/найз_активгель.png', description: 'Описание препарата 1' },
+        { name: 'фитолизин', image: 'medicines/фитолизин.png', description: 'Описание препарата 1' },
+        { name: 'тенотен', image: 'medicines/тенотен.png', description: 'Описание препарата 1' },
+        { name: 'тримедат', image: 'medicines/тримедат.png', description: 'Описание препарата 1' },
+        { name: 'новопассит', image: 'medicines/новопассит.png', description: 'Описание препарата 1' },
+        { name: 'кеторол', image: 'medicines/кеторол.png', description: 'Описание препарата 1' },
+        { name: 'цистон', image: 'medicines/цистон.png', description: 'Описание препарата 1' },
+        { name: 'силораква', image: 'medicines/силораква.png', description: 'Описание препарата 1' },
+        { name: 'мирамистин', image: 'medicines/мирамистин.png', description: 'Описание препарата 1' },
+        { name: 'називин', image: 'medicines/називин.png', description: 'Описание препарата 1' },
+        { name: 'пентовит', image: 'medicines/пентовит.png', description: 'Описание препарата 1' },
+        { name: 'персен', image: 'medicines/персен.png', description: 'Описание препарата 1' },
+        { name: 'циклоферон', image: 'medicines/циклоферон.png', description: 'Описание препарата 1' },
+        { name: 'энтерол', image: 'medicines/энтерол.png', description: 'Описание препарата 1' },
+        { name: 'тулип', image: 'medicines/тулип.png', description: 'Описание препарата 1' },
+        { name: 'ундевит_мбф', image: 'medicines/ундевит_мбф.png', description: 'Описание препарата 1' },
+        { name: 'фликсоназе', image: 'medicines/фликсоназе.png', description: 'Описание препарата 1' },
+        { name: 'цинковая_паста', image: 'medicines/цинковая_паста.png', description: 'Описание препарата 1' },
         // Добавьте другие препараты с соответствующими названиями и изображениями
     ];
 
-    var shelfHeights = [295, 35, 35, 35];
-    var tooltipSize = '200px'; // Размер плашки подсказки
+    var shelfHeights = [340, 65, 65, 60, 60];
+    var tooltipSize = '200px';
 
-    // Перемешиваем препараты
     medications = shuffleArray(medications);
 
-    // Создаем четыре полки
-    for (var i = 0; i < 4; i++) {
+    // Создаем 5 полок
+    for (var i = 0; i < 5; i++) {
         var shelf = $('<div class="shelf"></div>');
-
-        // Устанавливаем фиксированное положение по оси Y
         shelf.css('margin-top', shelfHeights[i] + 'px');
 
-        // Выбираем случайное количество препаратов для каждой полки (от 1 до 3, например)
-        var numberOfMedications = Math.floor(Math.random() * 100) + 1; ////////////////////// тут проблема? не все препараты высвечиваются //////////////
-
         // Добавляем препараты на полку
-        for (var j = 0; j < numberOfMedications; j++) {
-            if (medications.length > 0) {
-                var medication = medications.pop();
-                var medicationImage = $('<img class="medicationImage" src="' + medication.image + '" alt="' + medication.name + '">');
+        var remainingWidth = 100;
+        var medicationsOnShelf = [];
 
-                // Устанавливаем случайное положение по оси X
-                medicationImage.css('left', Math.random() * 100 + '%');
+        medications.forEach(function (medication) {
+            var medicationImage = $('<img class="medicationImage" src="' + medication.image + '" alt="' + medication.name + '">');
 
-                // Добавляем всплывающую подсказку при наведении
-                var tooltip = $('<div class="tooltip">' + medication.description + '</div>');
-                tooltip.css('max-width', tooltipSize);
-                medicationImage.append(tooltip);
+            var tooltip = $('<div class="tooltip">' + medication.description + '</div>');
+            tooltip.css('max-width', tooltipSize);
+            medicationImage.append(tooltip);
 
-                // Используйте замыкание для правильного захвата значения переменной medicationName
-                (function(medicationName) {
-                    medicationImage.on('click', function() {
-                        alert('Выбран препарат: ' + medicationName);
-                        // Здесь вы можете выполнить дополнительные действия при выборе препарата
-                    });
-                })(medication.name);
+            // Определяем ширину препарата
+            var medicationWidth = 10;
+
+            // Если препарат вмещается в оставшееся пространство на полке, добавляем его
+            if (remainingWidth >= medicationWidth) {
+                medicationsOnShelf.push(medication);
+
+                // Устанавливаем положение препарата по оси X
+                medicationImage.css('left', (100 - remainingWidth) + '%');
 
                 shelf.append(medicationImage);
-            }
-        }
 
-        // Добавляем полку на страницу
+                remainingWidth -= medicationWidth;
+            }
+        });
+
+        // Переносим оставшиеся препараты на следующую полку
+        medications = medications.filter(function (medication) {
+            return medicationsOnShelf.indexOf(medication) === -1;
+        });
+
         shelfPopup.append(shelf);
     }
 }
