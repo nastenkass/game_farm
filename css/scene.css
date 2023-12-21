@@ -1,10 +1,10 @@
 .character
 {
 	position:absolute;
-	width:200px;
-	height:500px;
+	width:500px;
+	height:1200px;
 	left:500px;
-	top:30px;
+	top:100px;
 	background-repeat:no-repeat;
 }
 
@@ -17,13 +17,19 @@
 {
 	color:rgb(128, 232, 255);
 }
-#container[character="bobby"] #characterName
-{
-	color:rgb(255, 247, 128);
+
+#container[character="noname"] .character {
+    left: 300px;
+	top: -100px;
 }
-#container[character="alice"] #characterName
+
+#container[character="noname"] #characterName
 {
-	color:rgb(255, 80, 150);
+	color:rgb(131, 131, 131);
+}
+#container[character="sick1"] #characterName
+{
+	color:rgb(190, 156, 229);
 }
 
 #container[place="street"] #placeName

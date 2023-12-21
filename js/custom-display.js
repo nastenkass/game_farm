@@ -151,10 +151,6 @@ function openShelfPopup() {
 
     // Создаем попап с полкой
     var popup = $('<div id="shelfPopup" class="popup">\
-                      <div id="shelfContainer">\
-                          <div class="shelfContent"></div>\
-                      </div>\
-                      <button id="closeShelfPopup">Закрыть</button>\
                   </div>');
     
     // Append the popup to the overlay, not the body
@@ -187,7 +183,7 @@ function closeShelfPopup() {
 }
 
 function generateShelves() {
-    var shelfPopup = $('#shelfPopup .shelfContent'); // Используйте .shelfContent вместо .html('')
+    var shelfPopup = $('#shelfPopup'); // Используйте .shelfContent вместо .html('')
 
     var medications = [
         { name: 'аквамарис', image: 'medicines/аквамарис.png', description: 'Описание препарата 1' },
@@ -244,7 +240,6 @@ function generateShelves() {
     ];
 
     var shelfHeights = [340, 65, 65, 60, 60];
-    var tooltipSize = '200px';
 
     medications = shuffleArray(medications);
 
@@ -259,10 +254,6 @@ function generateShelves() {
 
         medications.forEach(function (medication) {
             var medicationImage = $('<img class="medicationImage" src="' + medication.image + '" alt="' + medication.name + '">');
-
-            var tooltip = $('<div class="tooltip">' + medication.description + '</div>');
-            tooltip.css('max-width', tooltipSize);
-            medicationImage.append(tooltip);
 
             // Определяем ширину препарата
             var medicationWidth = 10;
@@ -304,13 +295,13 @@ function shuffleArray(array) {
 function startTimer() {
     timerInterval = setInterval(function () {
         var currentTime = new Date().getTime();
-        if (currentTime - startTime >= 100000) { // 600000 миллисекунд = 10 минут
+        if (currentTime - startTime >= 600000) { // 600000 миллисекунд = 10 минут
             clearInterval(timerInterval); // Остановить интервал, когда время вышло
             gameOver = true;
             showGameOverScreen();
         } else {
             // Обновляем таймер и отображаем его на экране
-            var remainingTime = Math.ceil((100000 - (currentTime - startTime)) / 1000); // Оставшееся время в секундах
+            var remainingTime = Math.ceil((600000 - (currentTime - startTime)) / 1000); // Оставшееся время в секундах
             $("#timerCounter").text("Время: " + formatTime(remainingTime));
         }
     }, 1000); // Обновлять каждую секунду (1000 миллисекунд)

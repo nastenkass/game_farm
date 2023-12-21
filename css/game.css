@@ -46,6 +46,21 @@ h1
 
 /* shelf */
 
+.shelf {
+	display: flex;
+	justify-content: space-between;
+}
+  
+  /* Задаем рандомные отступы для каждой картинки */
+.shelf img:nth-child(1) {
+	margin-right: 6px;
+}
+
+.shelf img:nth-child(2) {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
 #overlay-shelf {
     position: fixed;
     top: 0;
@@ -84,8 +99,8 @@ h1
 }
 
 #shelfPopup {
-    width: 1400px;
-    height: 1071px;
+    width: 1358px;
+    height: 1005px;
     border: 2px solid #333;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     background: none;
@@ -100,4 +115,15 @@ h1
     margin: 5px;
     max-width: 100%;
     max-height: 65px;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999;
 }
