@@ -1,7 +1,7 @@
 body
 {
-	background-color:rgb(110,110,110);
-	font-family: 'Poiret One', sans-serif;
+	background-color:rgb(155, 155, 155);
+	font-family: 'Roboto Mono', sans-serif;
 	font-size: 5px;
 	background-size:100% 100%;
 }
@@ -16,18 +16,34 @@ body
 	color:white;
 	height:100%;
 }
+#logo
+{
+	position: absolute;
+	left: 1100;
+	bottom: 50;
+	height: 80px;
+}
+#logo img
+{
+	width: 300px;
+}
 h1
 {
-	font-size:48px;
+	line-height: 40px;
+	font-size:36px;
 	padding-top: 30px;
 	text-align:center;
 	color:white;
-	text-shadow:0px 0px 50px pink;
+	text-shadow:3px 3px 1px rgb(25, 89, 228);
 }
 p
 {
-	margin: 20px;
+	margin-bottom: 20px;
+	margin-top: 50px;
+	margin-left: 20px;
+	margin-right: 20px;
 	font-size: 20px;
+	line-height: 28px;
 }
 a
 {
@@ -35,19 +51,20 @@ a
 }
 a.button
 {
+	background-color: rgb(20, 119, 231);
 	font-size: 30px;
 	text-decoration: none;
-	color:rgb(128, 232, 255);
+	color:rgb(255, 255, 255);
 	display:inline-block;
 	margin:20px auto;
-	padding:5px 40px;
-	border:1px solid rgb(128, 232, 255);
-	border-radius:7px;
+	padding:10px 55px;
+	border:2px solid rgb(9, 145, 236);
+	border-radius:12px;
 }
 a.button:hover
 {
 	text-shadow:0px 0px 8px white;
-	background:rgba(151, 128, 255, 0.4);
+	background:rgba(0, 140, 255, 0.678);
 }
 ul
 {

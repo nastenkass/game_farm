@@ -191,6 +191,21 @@
     }
 }
 
+/* */
+
+
+
+  .medicationImage.checked:after {
+    content: '\2713'; /* Юникод-символ галочки */
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #00ff00; /* Цвет галочки (зеленый) */
+    font-size: 20px;
+  }
+
+/* */
+
 
 #pdfContainer {
     max-height: 80vh; /* Максимальная высота контейнера в 80% от высоты видимой области экрана */

@@ -46,19 +46,38 @@ h1
 
 /* shelf */
 
-.shelf {
-	display: flex;
-	justify-content: space-between;
+.medicationImage {
+    cursor: pointer;
+    margin: 5px;
+    max-width: 100%;
+    max-height: 65px;
 }
-  
-  /* Задаем рандомные отступы для каждой картинки */
+
+.medicationImage.checked {
+    display: block;
+}
+
+/* Добавьте стили для .medicationImage.checked */
+.medicationImage.checked {
+    /* Здесь вы можете добавить стили для выделенных препаратов, если это необходимо */
+    border: 2px solid #00cc00;
+    box-shadow: 0 0 5px #00cc00;
+}
+
+
+/* Остальные стили оставьте без изменений */
+.shelf {
+    display: flex;
+    justify-content: space-between;
+}
+
 .shelf img:nth-child(1) {
-	margin-right: 6px;
+    margin-right: 6px;
 }
 
 .shelf img:nth-child(2) {
-	margin-left: 10px;
-	margin-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 #overlay-shelf {
@@ -74,16 +93,26 @@ h1
 
 .close-btn {
     position: absolute;
-	right: 45px;
-	margin-top: 30px;
-	margin-right: 30px;
-	font-size: 45px;
-    color: white;    /* Set the color to white */
+    right: 45px;
+    margin-top: 30px;
+    margin-right: 30px;
+    font-size: 45px;
+    color: white;
     cursor: pointer;
 }
 
-.close-btn:hover {
-    color: #ccc; /* Change color on hover if desired */
+.confirm{
+    position: absolute;
+    right: 45px;
+    margin-top: 100px;
+    margin-right: 30px;
+    font-size: 45px;
+    color: white;
+    cursor: pointer;
+}
+
+.close-btn:hover, .confirm:hover {
+    color: #ccc;
 }
 
 #shelfContainer {
@@ -93,7 +122,7 @@ h1
 .shelfContent {
     width: 100%;
     position: absolute;
-	margin-left: 20px;
+    margin-left: 20px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -110,20 +139,43 @@ h1
     position: absolute;
 }
 
-.medicationImage {
-    cursor: pointer;
-    margin: 5px;
-    max-width: 100%;
-    max-height: 65px;
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px 40px;
+    z-index: 1000;
 }
 
-.tooltip {
+.modal-content {
+    position: relative;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: -20px;
+    right: -33px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.medicationDescription {
     display: none;
     position: absolute;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 10px;
-    max-width: 200px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 999;
+    box-sizing: border-box;
+    text-align: left;
+    position: absolute;
+    font-size: 14px;
 }
+
+
