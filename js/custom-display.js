@@ -244,7 +244,7 @@ function showModal(content, hasReturnButton, isError) {
 
     // Добавляем кнопку "Закрыть и вернуться" при необходимости
     if (hasReturnButton) {
-        var closeAndGoToIndexBtn = $('<button class="close-and-go-to-index-btn">Закрыть и вернуться</button>');
+        var closeAndGoToIndexBtn = $('<button class="close-and-go-to-index-btn">Начать заново</button>');
         closeAndGoToIndexBtn.on('click', function () {
             closeModal();
             goToIndexPage();
