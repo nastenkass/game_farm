@@ -1,8 +1,7 @@
 #container
 {
-	width:calc(100% - 16px);
-	height: calc(100% - 16px);
-	border: 8px solid rgba(0,0,0,0.3);
+	width:calc(100% - 0px);
+	height: calc(100% - 0px);
 	border-radius: 0;
 	position: relative;
 }
@@ -43,6 +42,52 @@
 	cursor: pointer;
 }
 
+/* #pointCounter {
+	left: 700;
+	position: absolute;
+	top: -1px;
+	font-family: 'Roboto Mono';
+	font-size: 22pt;
+	color: white;
+	padding: 5px 20px 12px 20px;
+	border: 1px solid rgba(255, 255, 255, 0.6);
+	background: rgba(0, 0, 0, 0.8);
+} */
+
+#pointPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+	padding: 20px 50px 20px 30px;
+    border: 1px solid #000;
+    z-index: 9999;
+    box-shadow: 0 0 40px rgb(0, 21, 212);
+    display: none;
+	font-size: 40px;
+	color: #10025f;
+}
+
+.overlay-point {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9998;
+    display: none;
+}
+
+.closeButton-point {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+	font-size: 20px;
+}
+
 #timerCounter
 {
 	position:absolute;
@@ -53,7 +98,7 @@
 	color:white;
 	padding:5px 20px 12px 20px;
 	border:1px solid rgba(255,255,255, 0.6);
-	background:rgba(0,0,0,0.8);
+	background:rgba(2, 77, 121, 0.74);
 }
 
 #choices {
@@ -191,18 +236,14 @@
     }
 }
 
-/* */
-
-
-
-  .medicationImage.checked:after {
+.medicationImage.checked:after {
     content: '\2713'; /* Юникод-символ галочки */
     position: absolute;
     top: 5px;
     right: 5px;
     color: #00ff00; /* Цвет галочки (зеленый) */
     font-size: 20px;
-  }
+}
 
 /* */
 
@@ -211,3 +252,4 @@
     max-height: 80vh; /* Максимальная высота контейнера в 80% от высоты видимой области экрана */
     overflow-y: auto; /* Включаем вертикальную полосу прокрутки, если контент выходит за пределы контейнера */
 }
+

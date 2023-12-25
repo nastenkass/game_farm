@@ -156,10 +156,6 @@ function openShelfPopup() {
     // Append the popup to the overlay, not the body
     overlay.append(popup);
 
-    // Добавляем кнопку закрытия в overlay-shelf
-    var closeBtn = $('<div class="close-btn">&#10006;</div>');
-    overlay.append(closeBtn);
-
     // Добавляем галочку для подтверждения выбора
     var confirmCheckbox = $('<div class="confirm">&#10003;</div>');
     overlay.append(confirmCheckbox);
@@ -170,9 +166,12 @@ function openShelfPopup() {
     });
 
     // Добавляем обработчик для закрытия попапа
-    $('#closeShelfPopup, .close-btn').on('click', closeShelfPopup);
+    $('#closeShelfPopup, .close-btn').on('click', function () {
+        closeShelfPopup();
+        unblockBackground();
+    });
 
-    confirmCheckbox.on('click', function() {
+    confirmCheckbox.on('click', function () {
         closeShelfPopup();
         showSelectedMedications();
     });
@@ -186,18 +185,55 @@ function openShelfPopup() {
 }
 
 function showSelectedMedications() {
-    var selectedMeds = $('.medicationImage.checked').map(function() {
+    var selectedMeds = $('.medicationImage.checked').map(function () {
         return $(this).attr('alt');
     }).get();
 
-    if (selectedMeds.length > 0) {
-        showModal('Вы выбрали: ' + selectedMeds.join(', '));
+    var correctMedications = ['Но-шпа', 'Тримедат', 'Иберогаст'];
+
+    // Проверяем, выбраны ли правильные препараты
+    var isCorrectSelection = correctMedications.every(function (med) {
+        return selectedMeds.indexOf(med) !== -1;
+    });
+
+    // Выводим сообщение в модальном окне
+    if (selectedMeds.length < 3) {
+        showModal('Выберите как минимум 3 препарата.', true, true);
+    } else if (!isCorrectSelection) {
+        showModal('Вы допустили ошибку. Выберите правильные препараты.', true, true);
+        // Блокируем задний фон
+        blockBackground();
     } else {
-        showModal('Вы не выбрали ни одного препарата.');
+        showModal('Вы выбрали: ' + selectedMeds.join(', '));
     }
 }
 
-function showModal(content) {
+function blockBackground() {
+    var overlay = $('<div id="overlay-blocking"></div>');
+    $('body').append(overlay);
+
+    overlay.fadeIn();
+}
+
+function closeModal() {
+    var modal = $('#modal');
+    modal.css('display', 'none');
+    // Удаляем блокировку заднего фона при закрытии модального окна
+    unblockBackground();
+}
+
+function unblockBackground() {
+    var overlay = $('#overlay-blocking');
+    overlay.fadeOut(function () {
+        overlay.remove();
+    });
+}
+
+function showModal(content, hasReturnButton, isError) {
+    // Создаем оверлей
+    var overlay = $('<div id="overlay-modal" class="overlay-modal"></div>');
+    $('body').append(overlay);
+
     // Создаем модальное окно динамически
     var modal = $('<div id="modal" class="modal"></div>');
     var modalContent = $('<div class="modal-content"></div>');
@@ -205,27 +241,43 @@ function showModal(content) {
     var modalMessage = $('<div id="selectedMedsDisplayModal">' + content + '</div>');
 
     modalContent.append(closeModalBtn, modalMessage);
+
+    // Добавляем кнопку "Закрыть и вернуться" при необходимости
+    if (hasReturnButton) {
+        var closeAndGoToIndexBtn = $('<button class="close-and-go-to-index-btn">Закрыть и вернуться</button>');
+        closeAndGoToIndexBtn.on('click', function () {
+            closeModal();
+            goToIndexPage();
+        });
+        modalContent.append(closeAndGoToIndexBtn);
+    }
+
     modal.append(modalContent);
 
-    // Добавляем модальное окно к body
+    // Добавляем модальное окно и оверлей к body
     $('body').append(modal);
 
     // Открываем модальное окно
     openModal();
 
+    // Заблокируем возможность кликать на что-то другое, если это ошибка
+    if (isError) {
+        overlay.fadeIn();
+    }
+
     // Обработчик для закрытия модального окна
-    closeModalBtn.on('click', closeModal);
+    closeModalBtn.on('click', function () {
+        closeModal();
+        overlay.fadeOut();
+    });
 }
+
 
 function openModal() {
     var modal = $('#modal');
     modal.css('display', 'block');
 }
 
-function closeModal() {
-    var modal = $('#modal');
-    modal.css('display', 'none');
-}
 
 // Добавьте новую функцию для закрытия попапа с полками
 function closeShelfPopup() {
@@ -238,56 +290,56 @@ function generateShelves() {
     var shelfPopup = $('#shelfPopup'); 
 
     var medications = [
-        { name: 'аквамарис', image: 'medicines/аквамарис.png', description: 'Аква Марис Стронг (спрей)' },
-        { name: 'амиксин', image: 'medicines/амиксин.png', description: 'Амиксин (таблетки 125 мг)'  },
-        { name: 'виферон', image: 'medicines/виферон.png', description: 'Виферон (суппозитории 500000 МЕ, мазь)'  },
-        { name: 'кеторол-экспресс', image: 'medicines/кеторол_экспресс.png', description: 'Кеторол Экспресс (10 мг таблетки, диспергируемые в полости рта)' },
-        { name: 'аторис', image: 'medicines/аторис.png', description: 'Аторис (таблетки 20 мг)' },
-        { name: 'афобазол', image: 'medicines/афобазол.png', description: 'Афобазол (таблетки 10 мг)' },
-        { name: 'виброцил', image: 'medicines/виброцил.png', description: 'Виброцил (капли)' },
-        { name: 'аторвастин', image: 'medicines/аторвастин.png', description: 'Аторвастатин (таблетки 20 мг)' },
-        { name: 'амоксиклав', image: 'medicines/амоксиклав.png', description: 'Амоксиклав (таблетки 875 мг+125 мг)' },
-        { name: 'берокка', image: 'medicines/берокка.png', description: 'Берокка Плюс (таблетки)' },
-        { name: 'бепантен', image: 'medicines/бепантен.png', description: 'Бепантен (крем 5%, мазь 5%)' },
-        { name: 'банеоцин', image: 'medicines/банеоцин.png', description: 'Банеоцин (порошок)' },
-        { name: 'капсикам', image: 'medicines/капсикам.png', description: 'Капсикам (мазь)' },
-        { name: 'канефрон', image: 'medicines/канефрон.png', description: 'Канефрон Н (таблетки, раствор)' },
-        { name: 'ингавирин', image: 'medicines/ингавирин.png', description: 'Ингавирин (капсулы 90 мг)' },
-        { name: 'мидокалм', image: 'medicines/мидокалм.png', description: 'Мидокалм (таблетки 50 мг)' },
-        { name: 'метформин', image: 'medicines/метформин.png', description: 'Метформин (таблетки 1000 мг)' },
-        { name: 'иберогаст', image: 'medicines/иберогаст.png', description: 'Иберогаст (капли)' },
-        { name: 'гриппферон', image: 'medicines/гриппферон.png', description: 'Гриппферон (капли)' },
-        { name: 'пантенол', image: 'medicines/пантенол.png', description: 'Пантенол (мазь 5%)' },
-        { name: 'но-шпа', image: 'medicines/но-шпа.png', description: 'Но-шпа (таблетки 40 мг)' },
-        { name: 'мерифатин', image: 'medicines/мерифатин.png', description: 'Мерифатин МВ 1000 мг (таблетки)' },
-        { name: 'нурофен', image: 'medicines/нурофен.png', description: 'Нурофен форте (таблетки 400 мг)' },
-        { name: 'масло_облепиховое', image: 'medicines/масло_облепиховое.png', description: 'Масло облепиховое (масло для приема внутрь, местного и наружного применения)' },
-        { name: 'Сиофор', image: 'medicines/сиофор.png', description: 'Сиофор 1000 (таблетки 1000 мг)' },
-        { name: 'глюкофаж', image: 'medicines/глюкофаж.png', description: 'Глюкофаж Лонг 1000 мг (таблетки 1000 мг)' },
-        { name: 'вольтарен', image: 'medicines/вольтарен.png', description: 'Вольтарен (пластырь 30 мг/сут, гель 2%)' },
-        { name: 'лоратадин', image: 'medicines/лоратадин.png', description: 'Лоратадин (таблетки 10 мг)' },
-        { name: 'лизобакт', image: 'medicines/лизобакт.png', description: 'Лизобакт (таблетки)' },
-        { name: 'липримар', image: 'medicines/липримар.png', description: 'Липримар (таблетки 20 мг)' },
-        { name: 'супрадин', image: 'medicines/супрадин.png', description: 'Супрадин (таблетки, таблетки шипучие)' },
-        { name: 'Тизин', image: 'medicines/тизин.png', description: 'Тизин Алерджи (спрей назальный 50мкг/доза)' },
-        { name: 'найз_активгель', image: 'medicines/найз_активгель.png', description: 'Найз (гель)' },
-        { name: 'Фитолизин', image: 'medicines/фитолизин.png', description: 'Фитолизин (паста для приготовления суспензии, для приема внутрь)' },
-        { name: 'тенотен', image: 'medicines/тенотен.png', description: 'Тенотен (таблетки)' },
-        { name: 'Тримедат', image: 'medicines/тримедат.png', description: 'Тримедат (таблетки 200 мг)' },
-        { name: 'новопассит', image: 'medicines/новопассит.png', description: 'Ново-пассит (таблетки, раствор)' },
-        { name: 'кеторол', image: 'medicines/кеторол.png', description: 'Кеторол (гель)' },
-        { name: 'цистон', image: 'medicines/цистон.png', description: 'Цистон (таблетки)' },
-        { name: 'Сиалор аква', image: 'medicines/силораква.png', description: 'Сиалор аква (капли назальные)' },
-        { name: 'мирамистин', image: 'medicines/мирамистин.png', description: 'Мирамистин (раствор)' },
-        { name: 'називин', image: 'medicines/називин.png', description: 'Називин Сенситив (спрей 22,5 мкг/доза)' },
-        { name: 'пентовит', image: 'medicines/пентовит.png', description: 'Пентовит (таблетки)' },
-        { name: 'персен', image: 'medicines/персен.png', description: 'Персен (таблетки)' },
-        { name: 'циклоферон', image: 'medicines/циклоферон.png', description: 'Циклоферон (таблетки 150 мг)' },
-        { name: 'энтерол', image: 'medicines/энтерол.png', description: 'Энтерол (капсулы)' },
-        { name: 'тулип', image: 'medicines/тулип.png', description: 'Тулип (таблетки 20 мг)' },
-        { name: 'Ундевит', image: 'medicines/ундевит_мбф.png', description: 'Ундевит (драже)' },
-        { name: 'Фликсоназе', image: 'medicines/фликсоназе.png', description: 'Фликсоназе (спрей 50 мкг/доза)' },
-        { name: 'цинковая_паста', image: 'medicines/цинковая_паста.png', description: 'Цинковая паста (25%)' },
+        { name: 'Аквамарис', image: 'medicines/аквамарис.png', description1: 'Аква Марис Стронг', description2: '(спрей)'},
+        { name: 'Амиксин', image: 'medicines/амиксин.png', description1: 'Амиксин', description2: '(таблетки 125 мг)'},
+        { name: 'Виферон', image: 'medicines/виферон.png', description1: 'Виферон', description2: '(суппозитории 500000 МЕ, мазь)' },
+        { name: 'Кеторол-экспресс', image: 'medicines/кеторол_экспресс.png', description1: 'Кеторол Экспресс', description2:'(10 мг таблетки, диспергируемые в полости рта)'},
+        { name: 'Аторис', image: 'medicines/аторис.png', description1: 'Аторис', description2:'(таблетки 20 мг)'},
+        { name: 'Афобазол', image: 'medicines/афобазол.png', description1: 'Афобазол', description2: '(таблетки 10 мг)'},
+        { name: 'Виброцил', image: 'medicines/виброцил.png', description1: 'Виброцил', description2:'(капли)'},
+        { name: 'Аторвастин', image: 'medicines/аторвастин.png', description1: 'Аторвастатин', description2:'(таблетки 20 мг)'},
+        { name: 'Амоксиклав', image: 'medicines/амоксиклав.png', description1: 'Амоксиклав', description2:'(таблетки 875 мг+125 мг)'},
+        { name: 'Берокка', image: 'medicines/берокка.png', description1: 'Берокка Плюс', description2:'(таблетки)'},
+        { name: 'Бепантен', image: 'medicines/бепантен.png', description1: 'Бепантен', description2:'(крем 5%, мазь 5%)'},
+        { name: 'Банеоцин', image: 'medicines/банеоцин.png', description1: 'Банеоцин', description2:'(порошок)'},
+        { name: 'Капсикам', image: 'medicines/капсикам.png', description1: 'Капсикам', description2:'(мазь)'},
+        { name: 'Канефрон', image: 'medicines/канефрон.png', description1: 'Канефрон Н', description2:'(таблетки, раствор)'},
+        { name: 'Ингавирин', image: 'medicines/ингавирин.png', description1: 'Ингавирин', description2: '(капсулы 90 мг)'},
+        { name: 'Мидокалм', image: 'medicines/мидокалм.png', description1: 'Мидокалм', description2:'(таблетки 50 мг)'},
+        { name: 'Метформин', image: 'medicines/метформин.png', description1: 'Метформин', description2:'(таблетки 1000 мг)'},
+        { name: 'Иберогаст', image: 'medicines/иберогаст.png', description1: 'Иберогаст', description2:'(капли)'},
+        { name: 'Гриппферон', image: 'medicines/гриппферон.png', description1: 'Гриппферон', description2:'(капли)'},
+        { name: 'Пантенол', image: 'medicines/пантенол.png', description1: 'Пантенол', description2:'(мазь 5%)'},
+        { name: 'Но-шпа', image: 'medicines/но-шпа.png', description1: 'Но-шпа', description2:'(таблетки 40 мг)'},
+        { name: 'Мерифатин', image: 'medicines/мерифатин.png', description1: 'Мерифатин МВ 1000 мг', description2:'(таблетки)'},
+        { name: 'Нурофен', image: 'medicines/нурофен.png', description1: 'Нурофен форте', description2:'(таблетки 400 мг)'},
+        { name: 'Масло_облепиховое', image: 'medicines/масло_облепиховое.png', description1: 'Масло облепиховое', description2:'(масло для приема внутрь, местного и наружного применения)'},
+        { name: 'Сиофор', image: 'medicines/сиофор.png', description1: 'Сиофор 1000', description2:'(таблетки 1000 мг)'},
+        { name: 'Глюкофаж', image: 'medicines/глюкофаж.png', description1: 'Глюкофаж Лонг 1000 мг', description2:'(таблетки 1000 мг)'},
+        { name: 'Вольтарен', image: 'medicines/вольтарен.png', description1: 'Вольтарен', description2:'(пластырь 30 мг/сут, гель 2%)'},
+        { name: 'Лоратадин', image: 'medicines/лоратадин.png', description1: 'Лоратадин', description2:'(таблетки 10 мг)'},
+        { name: 'Лизобакт', image: 'medicines/лизобакт.png', description1: 'Лизобакт', description2:'(таблетки)'},
+        { name: 'Липримар', image: 'medicines/липримар.png', description1: 'Липримар', description2:'(таблетки 20 мг)'},
+        { name: 'Супрадин', image: 'medicines/супрадин.png', description1: 'Супрадин', description2:'(таблетки, таблетки шипучие)'},
+        { name: 'Тизин', image: 'medicines/тизин.png', description1: 'Тизин Алерджи', description2:'(спрей назальный 50мкг/доза)'},
+        { name: 'Найз_активгель', image: 'medicines/найз_активгель.png', description1: 'Найз', description2:'(гель)'},
+        { name: 'Фитолизин', image: 'medicines/фитолизин.png', description1: 'Фитолизин', description2:'(паста для приготовления суспензии, для приема внутрь)'},
+        { name: 'Тенотен', image: 'medicines/тенотен.png', description1: 'Тенотен', description2:'(таблетки)'},
+        { name: 'Тримедат', image: 'medicines/тримедат.png', description1: 'Тримедат', description2:'(таблетки 200 мг)'},
+        { name: 'Новопассит', image: 'medicines/новопассит.png', description1: 'Ново-пассит', description2:'(таблетки, раствор)'},
+        { name: 'Кеторол', image: 'medicines/кеторол.png', description1: 'Кеторол', description2:'(гель)'},
+        { name: 'Цистон', image: 'medicines/цистон.png', description1: 'Цистон', description2:'(таблетки)'},
+        { name: 'Сиалор аква', image: 'medicines/силораква.png', description1: 'Сиалор аква', description2:'(капли назальные)'},
+        { name: 'Мирамистин', image: 'medicines/мирамистин.png', description1: 'Мирамистин', description2:'(раствор)'},
+        { name: 'Називин', image: 'medicines/називин.png', description1: 'Називин Сенситив', description2:'(спрей 22,5 мкг/доза)'},
+        { name: 'Пентовит', image: 'medicines/пентовит.png', description1: 'Пентовит', description2:'(таблетки)'},
+        { name: 'Персен', image: 'medicines/персен.png', description1: 'Персен', description2:'(таблетки)'},
+        { name: 'Циклоферон', image: 'medicines/циклоферон.png', description1: 'Циклоферон', description2:'(таблетки 150 мг)'},
+        { name: 'Энтерол', image: 'medicines/энтерол.png', description1: 'Энтерол', description2:'(капсулы)'},
+        { name: 'Тулип', image: 'medicines/тулип.png', description1: 'Тулип', description2:'(таблетки 20 мг)'},
+        { name: 'Ундевит', image: 'medicines/ундевит_мбф.png', description1: 'Ундевит', description2:'(драже)'},
+        { name: 'Фликсоназе', image: 'medicines/фликсоназе.png', description1: 'Фликсоназе', description2:'(спрей 50 мкг/доза)'},
+        { name: 'Цинковая_паста', image: 'medicines/цинковая_паста.png', description1: 'Цинковая паста', description2:'(25%)'},
         // Добавьте другие препараты с соответствующими названиями и изображениями
     ];
 
@@ -307,7 +359,7 @@ function generateShelves() {
         medications.forEach(function (medication) {
             var medicationContainer = $('<div class="medicationContainer"></div>');
             var medicationImage = $('<img class="medicationImage" src="' + medication.image + '" alt="' + medication.name + '">');
-            var description = $('<div class="medicationDescription">' + medication.description + '</div>');
+            var description = $('<div class="medicationDescription1">' + '<h1>'+medication.description1+'</h1>'+ '<p>'+medication.description2+'</p>'  + '</div>');
             medicationContainer.append(medicationImage, description);
         
             // Определяем ширину препарата
@@ -411,6 +463,11 @@ function shuffleArray(array) {
     return array;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+
+function goToIndexPage() {
+    window.location.href = 'index.html'; // Измените на свой URL
+}
 
 //////////////////////////////////////////////////////////////////////////////
 

@@ -104,6 +104,52 @@ var openShelf = function (condition) {
     return true;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+
+var pointAmount = function (condition) {
+    var number = parseInt(condition.options[0]);
+    if (number === 22) {
+        checkPoint(0.5);
+    } else {
+        checkPoint(number);
+    }
+    return true;
+};
+
+var result = 0;
+
+function checkPoint(number) {
+    result += number;
+    if (number === 0) {
+        showPoint(result + 3);
+    }
+    return result;
+}
+
+function showPoint(result) {
+    var pointPopupElement = document.getElementById("pointPopup");
+    var overlayElement = document.getElementById("overlay-point");
+
+    if (pointPopupElement && overlayElement) {
+        pointPopupElement.innerText = "Набранные баллы — " + result;
+        pointPopupElement.style.display = "block";
+        overlayElement.style.display = "block";
+
+        // Добавляем кнопку "Закрыть"
+        var closeButton = document.createElement("div");
+        closeButton.className = "closeButton-point";
+        closeButton.innerHTML = "&#10006;";
+        closeButton.onclick = function () {
+            pointPopupElement.style.display = "none";
+            overlayElement.style.display = "none";
+            // Переадресация на end.html
+            window.location.href = "end.html";
+        };
+
+        pointPopupElement.appendChild(closeButton);
+    }
+}
+
 //A dictionary of all the known custom conditions, and the function they use to be evaluated.
 //Don't forget to add your own "name":function pairs here, too!
 var customConditions = {
@@ -111,5 +157,6 @@ var customConditions = {
   "check_answer": checkAnswer,
   "turn_on_pc": turnOnComputer,
   "shelf": openShelf,
+  "point": pointAmount,
   /* "custom":myCustomCondition, */
 };
