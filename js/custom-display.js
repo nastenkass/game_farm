@@ -160,6 +160,9 @@ function openShelfPopup() {
     var confirmCheckbox = $('<div class="confirm">&#10003;</div>');
     overlay.append(confirmCheckbox);
 
+    var hintText = $('<div class="hint-text">Нажмите два раза на ЛКМ, чтобы выбрать препарат</div>');
+    overlay.append(hintText);
+
     // Добавляем фоновую картинку
     popup.css({
         'background-image': 'url(medicines/shelf.png)',
