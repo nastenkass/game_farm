@@ -157,7 +157,7 @@ function openShelfPopup() {
     overlay.append(popup);
 
     // Добавляем галочку для подтверждения выбора
-    var confirmCheckbox = $('<div class="confirm">&#10003;</div>');
+    var confirmCheckbox = $('<div class="confirm">Выбрать</div>');
     overlay.append(confirmCheckbox);
 
     var hintText = $('<div class="hint-text">Нажмите два раза на ЛКМ, чтобы выбрать препарат</div>');

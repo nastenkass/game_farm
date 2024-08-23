@@ -109,11 +109,17 @@
     padding: 10px;
     padding-top: 0;
     width: 1600px;
-    border: 4px solid rgba(118, 118, 118, 0.695); /* Граница сверху */
-    border-bottom: none;
-    background: rgba(1, 62, 97, 0.87);
-	padding-bottom: 15px;
-	border-radius: 20px 20px 0 0;
+
+}
+
+#choices-character{
+    position: absolute;
+    top: 30%;
+    left: 72%;
+    transform: translateX(-50%);
+    padding: 10px;
+    padding-top: 0;
+    width: 800px;
 }
 
 /* choice */
@@ -129,10 +135,14 @@
 	user-select: none;
 	margin-left: 20px;
 	margin-right: 20px;
-	color:rgb(236, 236, 236);
+	color:rgb(10, 8, 85);
 	font-size: 18pt;
 	line-height: 1.3;
-	margin-bottom: 15px;
+	margin-bottom: 8px;
+
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 8px;
+    border-radius: 10px;
 }
 
   /* choice */
@@ -146,6 +156,7 @@
 	text-shadow:2px 2px 3px rgb(0, 0, 0);
 	margin: 20px 20px 15px 20px;
 }
+
 #placeName
 {
 	position:absolute;
@@ -157,10 +168,11 @@
 	border:1px solid rgba(255,255,255, 0.6);
 	background:rgba(0,0,0,0.8);
 }
+
 .choice:hover
 {
-	background:rgba(255,255,255,0.1);
-	color:white;
+	background:rgb(208, 227, 233, 0.9);
+	color:rgb(20, 20, 20);
 }
 
 #pc {

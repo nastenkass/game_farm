@@ -1,6 +1,6 @@
 body
 {
-	background-color:rgb(155, 155, 155);
+	background-color:rgb(255, 255, 255);
 	font-family: 'Roboto Mono', sans-serif;
 	font-size: 5px;
 	background-size:100% 100%;
@@ -12,15 +12,15 @@ body
 	/* padding:10px 50px; */
 	width:1080px;
 	position:relative;
-	text-align:center;
-	color:white;
+	text-align:justify;
+	color:rgb(0, 0, 0);
 	height:100%;
 }
 #logo
 {
 	position: absolute;
-	left: 1100;
-	bottom: 50;
+	right: 0%;
+	bottom: 10%;
 	height: 80px;
 }
 #logo img
@@ -33,8 +33,7 @@ h1
 	font-size:36px;
 	padding-top: 30px;
 	text-align:center;
-	color:white;
-	text-shadow:3px 3px 1px rgb(25, 89, 228);
+	color:rgb(0, 0, 0);
 }
 p
 {
@@ -48,6 +47,9 @@ p
 a
 {
 	color:rgb(255, 247, 128);
+	position: absolute;
+	left: 35%;
+	
 }
 a.button
 {

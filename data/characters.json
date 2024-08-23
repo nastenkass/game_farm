@@ -1,6 +1,7 @@
 {
-  "default":{
+  "pharmacist_1":{
     "poses":{
+      "default": "img/woman1.png"
     },
     "name":"Фармацевт"
   },

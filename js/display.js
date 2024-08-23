@@ -47,13 +47,22 @@ function displayCharacter(characterData)
 
 var clickedChoices = {};
 
-function displayChoices(choices) {
-  for (var c in choices) {
-    var choice = choices[c];
+function displayChoices(choices, characterData) {
 
-    // Создаем элемент выбора и добавляем его на страницу
+  console.log("Character ID:", characterData.id);
+
+  for (var c in choices) {
+
+    var targetDiv;
+    if (characterData.id.id === "pharmacist_1") {
+      targetDiv = "#choices";
+    } else {
+      targetDiv = "#choices-character";
+    }
+    console.log("targetDiv:", targetDiv);
+    var choice = choices[c];
     var choiceElement = $("<div class='choice' data-target=" + choice.target + ">" + choice.text + "</div>");
-    $("#choices").append(choiceElement);
+    $(targetDiv).append(choiceElement);
 
     // Добавляем обработчик события для выбора
     choiceElement.on("click", (function (selectedChoice, element) {
@@ -123,6 +132,8 @@ function displayBackground(url)
 
 function displayScene(sceneId)
 {	
+  clickedChoices = {};
+
   //Clear the scene
 	clearScene();
 
@@ -148,7 +159,7 @@ function displayScene(sceneId)
 	displayCharacter(currentScene.character);
 
   //Показать варианты
-	displayChoices(currentScene.choices);
+	displayChoices(currentScene.choices, {id: currentScene.character});
 
   //Custom code that executes after displaying the scene will be called now
   onSceneDisplayed(currentScene);
