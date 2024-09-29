@@ -5,12 +5,37 @@ var characters = {};
 var places = {};
 var variables = {};
 
-//Очищает сцену, удаляя все элементы выбора и персонажа, которые были добавлены в предыдущей сцене.
-function clearScene()
-{
-	$(".choice").remove();
+function clearScene() {
+  // Удаляем все элементы выбора из контейнера #choices
+  $("#choices .choice").remove();
+  // Удаляем элементы персонажа
   $(".character").remove();
 }
+
+function observeChoicesCharacter() {
+  // Создаем экземпляр MutationObserver
+  var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      // Проверяем, если в #choices-character добавлен новый элемент
+      if (mutation.addedNodes.length > 0) {
+        // Удаляем все элементы с классом selected-choice из #choices-character
+        $("#choices-character .choice.selected-choice").remove();
+      }
+    });
+  });
+
+  // Настраиваем наблюдатель на контейнер #choices-character
+  var config = { childList: true };
+  var targetNode = document.getElementById('choices-character');
+
+  if (targetNode) {
+    observer.observe(targetNode, config);
+  }
+}
+
+// Вызов функции для начала наблюдения
+observeChoicesCharacter();
+
 
 function displayCharacter(characterData)
 {

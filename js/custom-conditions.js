@@ -117,37 +117,68 @@ var pointAmount = function (condition) {
 };
 
 var result = 0;
+var maxPoints = 30;
 
 function checkPoint(number) {
     result += number;
     if (number === 0) {
-        showPoint(result + 3);
+        showPoint(result + 3, maxPoints); // Передаём maxPoints
     }
     return result;
 }
 
-function showPoint(result) {
+function showPoint(result, maxPoints) {
     var pointPopupElement = document.getElementById("pointPopup");
     var overlayElement = document.getElementById("overlay-point");
 
     if (pointPopupElement && overlayElement) {
-        pointPopupElement.innerText = "Набранные баллы — " + result;
-        pointPopupElement.style.display = "block";
-        overlayElement.style.display = "block";
+        // Очищаем предыдущие содержимое
+        pointPopupElement.innerHTML = '';
+
+        // Создаем контейнер для прогресс-бара
+        var progressContainer = document.createElement("div");
+        progressContainer.id = "progressContainer";
+
+        // Создаем прогресс-бар
+        var progressBar = document.createElement("div");
+        progressBar.id = "progressBar";
+        progressBar.style.width = '0%'; // Изначально 0%
+
+        // Добавляем прогресс-бар в контейнер
+        progressContainer.appendChild(progressBar);
+        pointPopupElement.appendChild(progressContainer);
+
+        // Создаем текст с результатом
+        var scoreText = document.createElement("div");
+        scoreText.id = "scoreText";
+        scoreText.innerText = "Набранные баллы — " + result + " из " + maxPoints;
+        pointPopupElement.appendChild(scoreText);
+
+        // Обновляем ширину прогресс-бара
+        var progressPercentage = (result / maxPoints) * 100;
+        progressBar.style.width = progressPercentage + "%";
 
         // Добавляем кнопку "Закрыть"
         var closeButton = document.createElement("div");
         closeButton.className = "closeButton-point";
         closeButton.innerHTML = "&#10006;";
         closeButton.onclick = function () {
-            pointPopupElement.style.display = "none";
-            overlayElement.style.display = "none";
-            // Переадресация на end.html
-            window.location.href = "end.html";
+            closePopup();
         };
-
         pointPopupElement.appendChild(closeButton);
+
+        // Показываем попап и оверлей
+        pointPopupElement.style.display = "block";
+        overlayElement.style.display = "block";
     }
+}
+
+function closePopup() {
+    var pointPopupElement = document.getElementById("pointPopup");
+    var overlayElement = document.getElementById("overlay-point");
+    pointPopupElement.style.display = "none";
+    overlayElement.style.display = "none";
+    window.location.href = "end.html";
 }
 
 //A dictionary of all the known custom conditions, and the function they use to be evaluated.

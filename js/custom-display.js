@@ -272,6 +272,11 @@ function showModal(content, hasReturnButton, isError) {
     closeModalBtn.on('click', function () {
         closeModal();
         overlay.fadeOut();
+
+        // Проверяем, нужна ли функция goToIndexPage()
+        if (hasReturnButton) {
+            goToIndexPage();
+        }
     });
 }
 
@@ -354,60 +359,68 @@ function generateShelves() {
     for (var i = 0; i < 5; i++) {
         var shelf = $('<div class="shelf"></div>');
         shelf.css('margin-top', shelfHeights[i] + 'px');
-
+    
         // Добавляем препараты на полку
         var remainingWidth = 100;
         var medicationsOnShelf = [];
-
+    
         medications.forEach(function (medication) {
             var medicationContainer = $('<div class="medicationContainer"></div>');
             var medicationImage = $('<img class="medicationImage" src="' + medication.image + '" alt="' + medication.name + '">');
             var description = $('<div class="medicationDescription1">' + '<h1>'+medication.description1+'</h1>'+ '<p>'+medication.description2+'</p>'  + '</div>');
             medicationContainer.append(medicationImage, description);
-        
+    
             // Определяем ширину препарата
             var medicationWidth = 10;
-        
+    
             // Если препарат вмещается в оставшееся пространство на полке, добавляем его
             if (remainingWidth >= medicationWidth) {
                 medicationsOnShelf.push(medication);
-        
+    
                 // Устанавливаем положение препарата и галочки по оси X
                 medicationImage.css('left', (100 - remainingWidth) + '%');
-        
+    
                 shelf.append(medicationContainer);
-
+    
+                let timer; // Variable to store the timeout ID
+    
                 medicationContainer.hover(
                     function (e) {
-                        // Показываем описание
-                        description.fadeIn(300);
-                
-                        // Вычисляем размеры описания
-                        var descriptionWidth = description.width();
-                        var descriptionHeight = description.height();
-                
-                        // Рассчитываем смещение относительно курсора
-                        var offsetX = -descriptionWidth; // Регулируйте расстояние от курсора по горизонтали
-                        var offsetY = -descriptionHeight + 100; // Регулируйте расстояние от курсора по вертикали
-                
-                        // Устанавливаем позицию описания рядом с курсором
-                        description.css({
-                            top: e.pageY + offsetY + 'px',
-                            left: e.pageX + offsetX + 'px',
-                        });
-                
-                        // Делаем описание некликальным
-                        description.css('pointer-events', 'none');
+                        // Start the timer when mouse enters
+                        timer = setTimeout(function() {
+                            // Показываем описание
+                            description.fadeIn(300);
+    
+                            // Вычисляем размеры описания
+                            var descriptionWidth = description.width();
+                            var descriptionHeight = description.height();
+    
+                            // Рассчитываем смещение относительно курсора
+                            var offsetX = -descriptionWidth; // Регулируйте расстояние от курсора по горизонтали
+                            var offsetY = -descriptionHeight + 100; // Регулируйте расстояние от курсора по вертикали
+    
+                            // Устанавливаем позицию описания рядом с курсором
+                            description.css({
+                                top: e.pageY + offsetY + 'px',
+                                left: e.pageX + offsetX + 'px',
+                            });
+    
+                            // Делаем описание некликальным
+                            description.css('pointer-events', 'none');
+                        }, 400); // Delay for 1 second
                     },
                     function () {
+                        // Clear the timer when mouse leaves
+                        clearTimeout(timer);
+    
                         // Скрываем описание
                         description.fadeOut(100);
-                
+    
                         // Восстанавливаем обработку клика после скрытия описания
                         description.css('pointer-events', 'auto');
                     }
                 );
-        
+    
                 remainingWidth -= medicationWidth;
             }
         });
@@ -420,30 +433,59 @@ function generateShelves() {
         shelfPopup.append(shelf);
     }
 
-    // Обработчик двойного клика по препарату
     shelfPopup.on('dblclick', '.medicationImage', function () {
         var medicationImage = $(this);
         var medicationName = medicationImage.attr('alt');
+        var targetY = 70; // Target Y coordinate
+        var imageWidth = 330; // Width of each image
+        var selectedCount = selectedMedications.length;
+        var offset = 300; // Initial offset for the first image
     
         // Проверяем, был ли уже отмечен этот препарат
         var index = selectedMedications.indexOf(medicationName);
     
         if (index === -1) {
+            // Check if the limit of 3 selected images is reached
+            if (selectedMedications.length >= 3) {
+                alert("You can only select up to 3 medications.");
+                return;
+            }
+    
             // Препарат не отмечен, добавляем галочку и сохраняем в массив
             medicationImage.addClass('checked');
             selectedMedications.push(medicationName);
+    
+            // Calculate the new left position
+            var targetX = selectedCount * imageWidth + offset;
+    
+            // Move the image to the target coordinates with animation
+            medicationImage.css('position', 'absolute').animate({
+                top: targetY,
+                left: targetX
+            }, 500); // 500 is the animation duration in milliseconds
         } else {
             // Препарат уже отмечен, убираем галочку и удаляем из массива
             medicationImage.removeClass('checked');
             selectedMedications.splice(index, 1);
+    
+            // Reset the image position
+            medicationImage.css({
+                'position': 'static',
+                'top': 'auto',
+                'left': 'auto'
+            });
+    
+            // Adjust the positions of the remaining selected images
+            $.each(selectedMedications, function(index, name) {
+                var img = $('.medicationImage[alt="' + name + '"]');
+                var newX = index * imageWidth + offset;
+                img.animate({
+                    left: newX
+                }, 500);
+            });
         }
     
         updateCheckmarksVisibility();
-        if (selectedMedications.length > 3) {
-            // Если превысило, снимаем галочку с последнего отмеченного препарата
-            var lastSelected = selectedMedications.shift();
-            $('.medicationImage[alt="' + lastSelected + '"]').removeClass('checked');
-        }
     });
 }
 

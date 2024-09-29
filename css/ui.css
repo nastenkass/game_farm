@@ -80,6 +80,21 @@
     display: none;
 }
 
+#progressContainer {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 10px 0 30px 0;
+}
+
+#progressBar {
+    height: 100%;
+    background-color: #3368da; /* Цвет заполненной части */
+    transition: width 0.5s ease; /* Плавное изменение ширины */
+}
+
 .closeButton-point {
     position: absolute;
     top: 10px;
@@ -136,7 +151,7 @@
 	margin-left: 20px;
 	margin-right: 20px;
 	color:rgb(10, 8, 85);
-	font-size: 18pt;
+	font-size: 16pt;
 	line-height: 1.3;
 	margin-bottom: 8px;
 
