@@ -4,6 +4,8 @@ body {
 	font-size: 5px;
 	background-size: 100% 100%;
 	overflow-x: hidden; /* Скрываем горизонтальную прокрутку */
+	margin: 0;
+	padding: 0;
 }
 
 #container {
@@ -15,6 +17,8 @@ body {
 	text-align: justify;
 	color: rgb(0, 0, 0);
 	height: 100%;
+	box-sizing: border-box; /* Учет padding в ширину */
+	overflow: hidden;
 }
 
 #logo {
@@ -27,7 +31,8 @@ body {
 }
 
 #logo img {
-	width: 300px;
+	width: 100%; /* Ограничиваем изображение */
+	max-width: 300px; /* Максимальная ширина изображения */
 }
 
 h1 {
@@ -36,6 +41,7 @@ h1 {
 	padding-top: 30px;
 	text-align: center;
 	color: rgb(0, 0, 0);
+	margin: 0;
 }
 
 p {
@@ -45,6 +51,7 @@ p {
 	margin-right: 20px;
 	font-size: 20px;
 	line-height: 28px;
+	box-sizing: border-box; /* Учет отступов в ширину */
 }
 
 a {
@@ -52,6 +59,7 @@ a {
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%); /* Центрирование по горизонтали */
+	text-align: center;
 }
 
 a.button {
@@ -64,6 +72,7 @@ a.button {
 	padding: 10px 55px;
 	border: 2px solid rgb(9, 145, 236);
 	border-radius: 12px;
+	box-sizing: border-box; /* Учет padding в ширину */
 }
 
 a.button:hover {
@@ -74,8 +83,9 @@ a.button:hover {
 ul {
 	list-style-type: none;
 	font-size: 18px;
-	padding: 0px;
+	padding: 0;
 	margin: 20px;
+	box-sizing: border-box; /* Учет padding в ширину */
 }
 
 li {
@@ -108,7 +118,8 @@ li {
 	}
 
 	#logo img {
-		width: 200px;
+		width: 100%;
+		max-width: 200px;
 	}
 
 	#logo {
@@ -134,15 +145,16 @@ li {
 	}
 
 	a.button {
-		font-size: 26px;
+		font-size: 14px;
 		padding: 8px 30px;
 	}
 
 	#logo img {
-		width: 150px;
+		width: 100%;
+		max-width: 150px;
 	}
 
 	#logo {
-		margin-bottom: 0px;
+		margin-bottom: 0;
 	}
 }
