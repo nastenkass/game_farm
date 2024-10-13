@@ -3,12 +3,14 @@ body {
 	font-family: 'Roboto Mono', sans-serif;
 	font-size: 5px;
 	background-size: 100% 100%;
+	overflow-x: hidden; /* Скрываем горизонтальную прокрутку */
 }
 
 #container {
 	font-size: 24px;
 	margin: 0 auto;
-	width: 1080px;
+	max-width: 1080px; /* Меняем на max-width */
+	width: 100%; /* Адаптируем для мобильных устройств */
 	position: relative;
 	text-align: justify;
 	color: rgb(0, 0, 0);
@@ -17,8 +19,8 @@ body {
 
 #logo {
 	position: absolute;
-	right: 0%;
-	bottom: 0%;
+	right: 0;
+	bottom: 0;
 	height: 80px;
 	margin-right: 30px;
 	margin-bottom: 60px;
@@ -48,7 +50,8 @@ p {
 a {
 	color: rgb(255, 247, 128);
 	position: absolute;
-	left: calc(50% - 130px); /* Центрирование по горизонтали */
+	left: 50%;
+	transform: translateX(-50%); /* Центрирование по горизонтали */
 }
 
 a.button {
@@ -67,6 +70,7 @@ a.button:hover {
 	text-shadow: 0px 0px 8px white;
 	background: rgba(0, 140, 255, 0.678);
 }
+
 ul {
 	list-style-type: none;
 	font-size: 18px;
@@ -84,22 +88,22 @@ li {
 	#container {
 		width: 100%;
 		font-size: 50px;
-		padding: 0 10px;
+		padding: 0 10px; /* Добавляем padding для избежания выхода текста */
 	}
 
 	h1 {
-		font-size: 28px;
-		line-height: 35px;
+		font-size: 24px;
+		line-height: 30px;
 	}
 
 	p {
 		font-size: 18px;
 		line-height: 26px;
-		margin: 30px 40px;
+		margin: 20px 20px; /* Уменьшаем отступы */
 	}
 
 	a.button {
-		font-size: 32px;
+		font-size: 30px;
 		padding: 10px 40px;
 	}
 
@@ -107,15 +111,15 @@ li {
 		width: 200px;
 	}
 
-	#logo{
-		bottom: 0px;
-
+	#logo {
+		bottom: 0;
 	}
 }
 
 @media (max-width: 480px) {
 	#container {
 		font-size: 16px;
+		padding: 0 10px; /* Добавляем padding для избежания выхода текста */
 	}
 
 	h1 {
@@ -126,7 +130,7 @@ li {
 	p {
 		font-size: 14px;
 		line-height: 20px;
-		margin: 30px 30px;
+		margin: 15px 15px; /* Уменьшаем отступы */
 	}
 
 	a.button {
@@ -138,7 +142,7 @@ li {
 		width: 150px;
 	}
 
-	#logo{
+	#logo {
 		margin-bottom: 0px;
 	}
 }
