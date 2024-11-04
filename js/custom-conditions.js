@@ -117,7 +117,7 @@ var pointAmount = function (condition) {
 };
 
 var result = 0;
-var maxPoints = 30;
+var maxPoints = 22;
 
 function checkPoint(number) {
     result += number;

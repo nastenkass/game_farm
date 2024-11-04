@@ -77,13 +77,14 @@ function displayChoices(choices, characterData) {
   console.log("Character ID:", characterData.id);
 
   for (var c in choices) {
-
     var targetDiv;
-    if (characterData.id.id === "pharmacist_1") {
+    // Проверяем, начинается ли ID персонажа с "pharmacist_"
+    if (characterData.id.id.startsWith("pharmacist_")) {
       targetDiv = "#choices";
     } else {
       targetDiv = "#choices-character";
     }
+    
     console.log("targetDiv:", targetDiv);
     var choice = choices[c];
     var choiceElement = $("<div class='choice' data-target=" + choice.target + ">" + choice.text + "</div>");

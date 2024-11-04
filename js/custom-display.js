@@ -188,28 +188,42 @@ function openShelfPopup() {
 }
 
 function showSelectedMedications() {
+    var level = window.currentLevel;
+    console.log("Текущий уровень в начале showSelectedMedications:", level); // Выводим значение level при начале функции
+
     var selectedMeds = $('.medicationImage.checked').map(function () {
         return $(this).attr('alt');
     }).get();
 
-    var correctMedications = ['Но-шпа', 'Тримедат', 'Иберогаст'];
+    var correctMedications = [];
+    if (level == 1) {
+        correctMedications = ['Но-шпа', 'Тримедат', 'Иберогаст'];
+        console.log("Уровень 1 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 1
+    } else if (level == 2) {
+        correctMedications = ['Тизин', 'Виброцил', 'Називин', 'Аквамарис', 'Сиалор аква', 'Фликсоназе'];
+        console.log("Уровень 2 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 2
+    }
+    // Добавьте другие уровни по необходимости
+    console.log("Выбранные препараты:", selectedMeds); // Выводим выбранные пользователем препараты
 
-    // Проверяем, выбраны ли правильные препараты
-    var isCorrectSelection = correctMedications.every(function (med) {
-        return selectedMeds.indexOf(med) !== -1;
+    var isCorrectSelection = selectedMeds.length === 3 && selectedMeds.every(function (med) {
+        return correctMedications.includes(med);
     });
 
-    // Выводим сообщение в модальном окне
     if (selectedMeds.length < 3) {
+        console.log("Недостаточно выбранных препаратов."); // Выводим сообщение о недостаточном выборе
         showModal('Выберите как минимум 3 препарата.', true, true);
     } else if (!isCorrectSelection) {
+        console.log("Неверный выбор препаратов."); // Выводим сообщение об ошибке выбора
         showModal('Вы допустили ошибку. Выберите правильные препараты.', true, true);
-        // Блокируем задний фон
         blockBackground();
     } else {
+        console.log("Правильный выбор препаратов:", selectedMeds); // Выводим сообщение об успешном выборе
         showModal('Вы выбрали: ' + selectedMeds.join(', '));
     }
 }
+
+
 
 function blockBackground() {
     var overlay = $('<div id="overlay-blocking"></div>');

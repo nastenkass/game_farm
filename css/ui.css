@@ -42,18 +42,6 @@
 	cursor: pointer;
 }
 
-/* #pointCounter {
-	left: 700;
-	position: absolute;
-	top: -1px;
-	font-family: 'Roboto Mono';
-	font-size: 22pt;
-	color: white;
-	padding: 5px 20px 12px 20px;
-	border: 1px solid rgba(255, 255, 255, 0.6);
-	background: rgba(0, 0, 0, 0.8);
-} */
-
 #pointPopup {
     position: fixed;
     top: 50%;
@@ -280,3 +268,34 @@
     overflow-y: auto; /* Включаем вертикальную полосу прокрутки, если контент выходит за пределы контейнера */
 }
 
+
+@media (max-width: 1200px) {
+    #pc {
+        position: absolute;
+        top: 50%; /* Центрирование по вертикали */
+        left: 0; /* Устанавливаем в 0 для выравнивания по левому краю */
+        transform: translateY(-50%); /* Сдвиг вверх на половину высоты */
+    }
+    
+    #pc img {
+        width: 175px; /* Задайте нужную ширину */
+        display: block;
+        max-width: 100%; /* Адаптация под размер экрана */
+        height: auto; /* Сохранение пропорций */
+    }
+
+    #choices-character{
+        width: 200px;
+        left: 30%;
+    }
+
+    #choices {
+        width: 100%;
+    
+    }
+
+    .choice{
+        font-size: 10px;
+    }
+
+}

@@ -1,11 +1,12 @@
 .character
 {
 	position:absolute;
-	width:500px;
+	width:550px;
 	height:1200px;
 	left:500px;
 	top:100px;
 	background-repeat:no-repeat;
+	background-size: contain; /* Обеспечивает масштабирование изображения */
 }
 
 #container[character="alice"] .character
@@ -35,4 +36,18 @@
 #container[place="street"] #placeName
 {
 	color: hotpink;
+}
+
+@media (max-width: 1200px) {
+    .character{
+		left: 150px;
+		width:250px;
+		top: 200px;
+	}
+
+	#container[character="noname"] .character {
+		left: 100px;
+		top: 160px;
+	}
+
 }

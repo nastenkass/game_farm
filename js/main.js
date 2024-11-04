@@ -32,6 +32,29 @@ function init_async()
 	});
 }
 
+
+
+function loadLevelData(level) {
+    const script = document.createElement("script");
+    script.src = `data/processed-data-level${level}.js`; // Загружаем нужный файл уровня
+    script.onload = function () {
+        init_local(); // После загрузки данных инициализируем игру
+    };
+    script.onerror = function () {
+        console.error("Не удалось загрузить данные для уровня " + level);
+    };
+    document.head.appendChild(script);
+}
+
+function getLevelFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('level') || 1; // По умолчанию уровень 1, если параметр не указан
+}
+
+
+window.currentLevel = getLevelFromURL();
+loadLevelData(window.currentLevel);
+
 //Initialize the character data after the data has been loaded
 function initCharacters()
 {
