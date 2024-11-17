@@ -1,158 +1,111 @@
-body {
-	background-color: rgb(255, 255, 255);
-	font-family: 'Roboto Mono', sans-serif;
-	font-size: 5px;
-	background-size: 100% 100%;
-	overflow-x: hidden; /* Скрываем горизонтальную прокрутку */
-	margin: 0;
-	padding: 0;
-}
-
-#container {
-	font-size: 24px;
-	margin: 0 auto;
-	max-width: 1080px; /* Меняем на max-width */
-	width: 100%; /* Адаптируем для мобильных устройств */
-	position: relative;
-	text-align: justify;
-	color: rgb(0, 0, 0);
-	height: 100%;
-	box-sizing: border-box; /* Учет padding в ширину */
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/inter.min.css");
+body{
+	font-family: 'Inter', sans-serif;
 	overflow: hidden;
 }
 
-#logo {
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	height: 80px;
-	margin-right: 30px;
-	margin-bottom: 60px;
+.container {
+	display: flex;
+	gap: 50px; /* Расстояние между колонками */
+	width: 100%; /* Ширина контейнера равна ширине экрана */
+	margin: 60px 50px;
+}
+
+.column {
+	flex-basis: 545px; /* Ширина первой колонки */
+}
+
+.second-column {
+	flex-grow: 1; /* Вторая колонка растягивается на оставшееся пространство */
 }
 
 #logo img {
-	width: 100%; /* Ограничиваем изображение */
-	max-width: 300px; /* Максимальная ширина изображения */
+	width: 270px;
+	margin-bottom: 50px;
 }
 
-h1 {
-	line-height: 40px;
-	font-size: 36px;
-	padding-top: 30px;
-	text-align: center;
-	color: rgb(0, 0, 0);
-	margin: 0;
+#blue{
+	font-size: 38px;
+	background-color: rgba(0, 121, 193, 1);
+	display: inline-block; /* Используем inline-block для ограничения ширины */
+	max-width: 100%; /* Ограничиваем ширину текста */
+	text-align: center; /* Центрируем текст внутри элемента */
+	padding: 10px; /* Добавляем внутренний отступ для более красивого вида */
+	color: aliceblue;
+	border-radius: 50px;
+	padding: 12px 30px;
+	font-weight: 600;
+	margin-bottom: 50px;
 }
 
-p {
-	margin-bottom: 20px;
-	margin-top: 50px;
-	margin-left: 20px;
-	margin-right: 20px;
-	font-size: 20px;
-	line-height: 28px;
-	box-sizing: border-box; /* Учет отступов в ширину */
-}
-
-a {
-	color: rgb(255, 247, 128);
-	align-items: center;
-}
-
-a.button {
-	background-color: rgb(20, 119, 231);
+#text{
 	font-size: 30px;
-	text-decoration: none;
-	color: rgb(255, 255, 255);
-	display:list-item; /* Поставьте inline-block, если нужны кнопки в одну строку */
-	margin: 20px auto;
-	padding: 10px 55px;
-	border: 2px solid rgb(9, 145, 236);
-	border-radius: 12px;
-	box-sizing: border-box;
-	text-align: center; /* Центрирование текста */
+	font-weight: 500;
+	line-height: 36px;
+	margin-bottom: 50px;
 }
 
-a.button:hover {
-	text-shadow: 0px 0px 8px white;
-	background: rgba(0, 140, 255, 0.678);
+span {
+	color: rgba(0, 36, 168, 1);
 }
 
-ul {
-	list-style-type: none;
+#text-2{
 	font-size: 18px;
-	padding: 0;
-	margin: 20px;
-	box-sizing: border-box; /* Учет padding в ширину */
+	font-weight: 500;
+	line-height: 22px;
+	margin-bottom: 60px;
 }
 
-li {
-	color: rgb(255, 80, 150);
-	margin: 5px;
+#title-level{
+	font-size: 25px;
+	font-weight: 800;
+	line-height: 30.26px;
+	text-align: left;
+	text-underline-position: from-font;
+	text-decoration-skip-ink: none;
+	text-transform: uppercase;
+	text-align: center;
 }
 
-/* Медиа-запросы для мобильных устройств */
-@media (max-width: 768px) {
-	#container {
-		width: 100%;
-		font-size: 50px;
-		padding: 0 10px; /* Добавляем padding для избежания выхода текста */
-	}
-
-	h1 {
-		font-size: 24px;
-		line-height: 30px;
-	}
-
-	p {
-		font-size: 18px;
-		line-height: 26px;
-		margin: 20px 20px; /* Уменьшаем отступы */
-	}
-
-	a.button {
-		font-size: 30px;
-		padding: 10px 40px;
-	}
-
-	#logo img {
-		width: 100%;
-		max-width: 200px;
-	}
-
-	#logo {
-		bottom: 0;
-	}
+.level-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-@media (max-width: 480px) {
-	#container {
-		font-size: 16px;
-		padding: 0 10px; /* Добавляем padding для избежания выхода текста */
-	}
-
-	h1 {
-		font-size: 18px;
-		line-height: 22px;
-	}
-
-	p {
-		font-size: 14px;
-		line-height: 20px;
-		margin: 15px 15px; /* Уменьшаем отступы */
-	}
-
-	a.button {
-		font-size: 14px;
-		padding: 8px 30px;
-	}
-
-	#logo img {
-		width: 100%;
-		max-width: 150px;
-	}
-
-	#logo {
-		margin-bottom: 0;
-	}
+.level-item-1, .level-item-2 {
+    display: flex; /* Делаем эти элементы флекс-контейнерами */
+    justify-content: space-between; /* Выравниваем содержимое по центру */
+    margin-top: 20px;
 }
+
+.level-item-1 a, .level-item-2 a {
+    background: rgba(0, 121, 193, 1); /* Цвет фона кнопки */
+	width: 90px;
+	height: 50px;
+	border-radius: 40px;
+	display: flex; /* Делаем кнопки флекс-контейнерами */
+    justify-content: center; /* Выравниваем текст по горизонтали */
+    align-items: center; /* Выравниваем текст по вертикали */
+    text-align: center; /* Дополнительное выравнивание текста */
+
+	color: white;
+	font-size: 35px;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.level-item-1 a:hover, .level-item-2 a:hover {
+    background: rgb(70, 175, 236); /* Цвет фона кнопки */
+	transform: scale(1.1);
+	transition: background-color 0.08s ease-in-out, transform 0.1s ease-in-out;
+}
+
+
+
+
+
+
+
+
+

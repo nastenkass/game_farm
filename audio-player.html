@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Audio Player</title>
+</head>
+<body>
+  <audio id="audioPlayer" autoplay loop></audio>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const audioSrc = urlParams.get('src');
+
+    if (audioSrc) {
+      const audio = document.getElementById('audioPlayer');
+      const source = document.createElement('source');
+      source.src = audioSrc;
+      source.type = 'audio/mpeg'; // или другой соответствующий тип
+      audio.appendChild(source);
+      audio.play();
+    }
+  </script>
+</body>
+</html>
