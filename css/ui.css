@@ -262,10 +262,99 @@
 
 /* */
 
+/* Основной контейнер скроллбара */
+::-webkit-scrollbar {
+    width: 10px; /* Ширина скроллбара */
+    height: 10px; /* Высота скроллбара */
+}
+
+/* Трек скроллбара (полоса, по которой движется ползунок) */
+::-webkit-scrollbar-track {
+    background-color: #dce0fc; /* Фон трека */
+    border-radius: 5px; /* Радиус углов трека */
+}
+
+/* Ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+    background-color: #929cd6; /* Фон ползунка */
+    border-radius: 5px; /* Радиус углов ползунка */
+}
+
+/* Ползунок при наведении */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #696fc2; /* Фон ползунка при наведении */
+}
+
+/* Кнопки вверх и вниз */
+::-webkit-scrollbar-button {
+    background-color: #ccc; /* Фон кнопок */
+    height: 10px; /* Высота кнопок */
+}
+
+/* Кнопки вверх и вниз при наведении */
+::-webkit-scrollbar-button:hover {
+    background-color: #aaa; /* Фон кнопок при наведении */
+}
+
 
 #pdfContainer {
     max-height: 80vh; /* Максимальная высота контейнера в 80% от высоты видимой области экрана */
+    width: 800px;
     overflow-y: auto; /* Включаем вертикальную полосу прокрутки, если контент выходит за пределы контейнера */
+    border: #000 5px;
+}
+
+#pdfContainer canvas{
+    align-items: center;
+}
+
+#buttonContainer {
+    width: 800px;
+}
+
+.fileButton {
+    width: 200px;
+    font-size: 20px;
+    color: #141c8a;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.fileButton:hover {
+    font-weight: 700;
+    color: #4b52af;
+}
+
+#closePopup{
+    position: relative;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#closePopup::before,
+#closePopup::after {
+  content: '';
+  position: absolute;
+  left: 740px;
+  bottom: 770px;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 2px;
+  background-color: #00043b;
+}
+
+#closePopup::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+  
+#closePopup::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 

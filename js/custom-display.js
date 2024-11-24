@@ -45,7 +45,7 @@ function openFilePopup(filePath) {
         if ($('#filePopup').length === 0) {
             var popup = $('<div id="filePopup" class="popup">\
                               <div id="pdfContainer"></div>\
-                              <button id="closePopup">Закрыть</button>\
+                              <button id="closePopup"></button>\
                               <div id="buttonContainer"></div>\
                             </div>');
 
@@ -68,7 +68,7 @@ function openFilePopup(filePath) {
                     pdfContainer.appendChild(canvas);
 
                     var context = canvas.getContext('2d');
-                    var viewport = page.getViewport({ scale: 1 });
+                    var viewport = page.getViewport({ scale: 1.3 });
 
                     canvas.width = viewport.width;
                     canvas.height = viewport.height;
