@@ -83,10 +83,10 @@ function colorAnswer1(number) {
 function enableComputerClick(number) {
     if (number === 1) {
         canClickComputer = true;
-        $('#pc').addClass('highlight');
+        $('#pc').addClass('highlight show'); // Добавляем классы highlight и show
     } else {
         canClickComputer = false;
-        $('#pc').finish().removeClass('highlight');
+        $('#pc').finish().removeClass('highlight show'); // Удаляем классы highlight и show
     }
 }
 

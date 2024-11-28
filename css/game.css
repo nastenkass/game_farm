@@ -102,33 +102,68 @@ h1
 }
 
 
-.confirm{
-    position: absolute;
-    right: 45px;
-    margin-top: 30px;
-    margin-right: 30px;
+.confirm {
+    font-family: 'Roboto Mono';
     font-size: 30px;
-    color: white;
+    color: #11016d;
     cursor: pointer;
+    position: fixed;
+    top: 27%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
 }
 
-.hint-text {
-    width: 150px;
-    height: auto;
+.hint-text{
     position: absolute;
-    right: 0;
-    top: 400;
-    margin-top: 30px;
-    margin-right: 30px;
-    font-size: 20px;
-    color: white;
-    cursor: pointer;
-    font-weight: 500;
-    line-height: 25px;
+    position: fixed;
+    top: 12%;
+    left: 18%;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+}
+
+.hint-text img{
+    width: 100px;
+}
+
+.tooltip-text {
+    font-family: 'Roboto Mono';
+    visibility: hidden;
+    width: 200px;
+    background-color: #404872;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: 105%; /* Позиционирование снизу */
+    left: 50%;
+    margin-left: -60px; /* Центрирование по горизонтали */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.hint-text:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Optional: Tooltip arrow */
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%; /* Позиционирование стрелки снизу */
+    left: 20%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #404872 transparent;
 }
 
 .close-btn:hover, .confirm:hover {
-    color: #ccc;
+    color: #8187e6;
 }
 
 .medicines {

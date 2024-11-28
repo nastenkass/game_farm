@@ -1,30 +1,22 @@
-//So uh these need to be initialized somewhere and I thought "Why not here?"
-//Why not here, indeed.
 var scenes = {};
 var characters = {};
 var places = {};
 var variables = {};
 
 function clearScene() {
-  // Удаляем все элементы выбора из контейнера #choices
   $("#choices .choice").remove();
-  // Удаляем элементы персонажа
   $(".character").remove();
 }
 
 function observeChoicesCharacter() {
-  // Создаем экземпляр MutationObserver
   var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
-      // Проверяем, если в #choices-character добавлен новый элемент
       if (mutation.addedNodes.length > 0) {
-        // Удаляем все элементы с классом selected-choice из #choices-character
         $("#choices-character .choice.selected-choice").remove();
       }
     });
   });
 
-  // Настраиваем наблюдатель на контейнер #choices-character
   var config = { childList: true };
   var targetNode = document.getElementById('choices-character');
 
@@ -39,9 +31,6 @@ observeChoicesCharacter();
 
 function displayCharacter(characterData)
 {
-  //characterData содержит только идентификатор персонажа и позу
-//Фактические изображения и имена находятся в словаре символов.
-//Если данный ключ не существует, выдать ошибку и вместо этого вернуться к символу по умолчанию.
   if(!(characterData.id in characters))
   {
     console.error("Character "+characterData.id+" does not exist.");
@@ -53,14 +42,11 @@ function displayCharacter(characterData)
   //Отображение имени персонажа
 	$("#characterName").html(character.name);
 
-  //Установите атрибуты персонажа и позы контейнера, чтобы можно было применять собственные правила CSS.
   $("#container").attr("character", characterData.id);
   $("#container").attr("pose", characterData.pose);
 
-  //«Скрытая» поза просто означает, что персонаж скрыт и отображать нечего.
   if(characterData.pose != "hidden")
   {
-    //Создайте элемент персонажа и установите его фон перед добавлением его в сцену.
     var characterElement = $("<div class='character'></div>");
     characterElement.css({"background-image": "url('"+character.poses[characterData.pose]+"')"});
     $("#sceneContent").append(characterElement);  

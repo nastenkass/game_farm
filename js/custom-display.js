@@ -157,10 +157,10 @@ function openShelfPopup() {
     overlay.append(popup);
 
     // Добавляем галочку для подтверждения выбора
-    var confirmCheckbox = $('<div class="confirm">Выбрать</div>');
+    var confirmCheckbox = $('<div class="confirm">Подтвердить выбор</div>');
     overlay.append(confirmCheckbox);
 
-    var hintText = $('<div class="hint-text">Нажмите два раза на ЛКМ, чтобы выбрать препарат</div>');
+    var hintText = $('<div class="hint-text"> <img src="img/hint.svg"> <span class="tooltip-text">Нажмите 2 раза ЛКМ, чтобы выбрать препарат. Для удаления препарата нажмите по нему 2 раза ЛКМ.</span> </div>');
     overlay.append(hintText);
 
     // Добавляем фоновую картинку
@@ -208,7 +208,14 @@ function showSelectedMedications() {
     } else if (level == 4) {
         correctMedications = ['Пантенол', 'Банеоцин', 'Бепантен'];
         console.log("Уровень 4 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 2
+    } else if (level == 5) {
+        correctMedications = ['Афобазол', 'Персен', 'Новопассит'];
+        console.log("Уровень 4 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 2
+    } else if (level == 5) {
+        correctMedications = ['Супрадин', 'Ундевит', 'Берокка'];
+        console.log("Уровень 4 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 2
     } 
+    
     // Добавьте другие уровни по необходимости
     console.log("Выбранные препараты:", selectedMeds); // Выводим выбранные пользователем препараты
 
@@ -371,7 +378,7 @@ function generateShelves() {
         // Добавьте другие препараты с соответствующими названиями и изображениями
     ];
 
-    var shelfHeights = [340, 65, 65, 60, 60];
+    var shelfHeights = [340, 60, 60, 60, 60];
 
     medications = shuffleArray(medications);
 
