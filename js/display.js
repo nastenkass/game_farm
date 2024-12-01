@@ -59,7 +59,6 @@ function displayCharacter(characterData)
 var clickedChoices = {};
 
 function displayChoices(choices, characterData) {
-
   console.log("Character ID:", characterData.id);
 
   for (var c in choices) {
@@ -80,7 +79,7 @@ function displayChoices(choices, characterData) {
     choiceElement.on("click", (function (selectedChoice, element) {
       return function () {
         // Проверяем, был ли уже выбран этот вариант
-        if (clickedChoices[selectedChoice.target]) {
+        if (clickedChoices[selectedChoice.target] && selectedChoice.target !== "nextscene2") {
           return;
         }
 
@@ -103,14 +102,20 @@ function displayChoices(choices, characterData) {
         }
 
         // Изменяем стиль выбранного варианта
-        element.addClass("selected-choice");
-
-        // Блокируем действие при клике
-        element.off("click");
+        if (selectedChoice.target !== "nextscene2") {
+          element.addClass("selected-choice disabled");
+          element.off("click");
+        }
 
         // Здесь можно добавить код для перехода к следующей сцене или выполнения других действий
       };
     })(choice, choiceElement));
+
+    // Применить ранее выбранный вариант сразу после добавления элемента
+    if (clickedChoices[choice.target] && choice.target !== "nextscene2") {
+      choiceElement.addClass("selected-choice disabled");
+      choiceElement.off("click");
+    }
   }
 }
 
@@ -142,12 +147,11 @@ function displayBackground(url)
 	$("#sceneContent").css({"background":"url('"+url+"')"});
 }
 
+
 function displayScene(sceneId)
 {	
-  clickedChoices = {};
-
   //Clear the scene
-	clearScene();
+  clearScene();
 
   //Пользовательский код, который выполняется после очистки сцены, теперь будет вызываться.
   onSceneCleared();
@@ -158,7 +162,7 @@ function displayScene(sceneId)
     console.error("Scene "+sceneId+" not found.");
     return;
   }
-	var currentScene = scenes[sceneId];
+  var currentScene = scenes[sceneId];
 
   //Управляйте каждым действием в этой сцене
   for(var a in currentScene.actions)
@@ -168,13 +172,38 @@ function displayScene(sceneId)
   }
 
   //Display the character
-	displayCharacter(currentScene.character);
+  displayCharacter(currentScene.character);
 
   //Показать варианты
-	displayChoices(currentScene.choices, {id: currentScene.character});
+  displayChoices(currentScene.choices, {id: currentScene.character});
+
+  // Применить ранее выбранные варианты
+  applyPreviouslySelectedChoices();
 
   //Custom code that executes after displaying the scene will be called now
   onSceneDisplayed(currentScene);
+}
+
+function applyPreviouslySelectedChoices() {
+  $(".choice").each(function() {
+    var target = $(this).data("target");
+
+    // Проверяем, находится ли элемент внутри #choices
+    var isInsideChoices = $(this).closest("#choices").length > 0;
+
+    // Если элемент находится в #choices и имеет data-target="nextscene2"
+    if (isInsideChoices && target !== "nextscene2") {
+      if (clickedChoices[target]) {
+        $(this).addClass("selected-choice disabled");
+        $(this).off("click");
+      }
+    } 
+    // Если элемент находится в #choices-character или любой другой, кроме "nextscene2"
+    else if (!isInsideChoices && clickedChoices[target]) {
+      $(this).addClass("selected-choice disabled");
+      $(this).off("click");
+    }
+  });
 }
 
 //При нажатии на выбор

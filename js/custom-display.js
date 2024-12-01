@@ -36,6 +36,40 @@ function onSceneDisplayed(scene) {
     }
 }
 
+function startTimer() {
+    timerInterval = setInterval(function () {
+        var currentTime = new Date().getTime();
+        if (currentTime - startTime >= 600000) { // 600000 миллисекунд = 10 минут
+            clearInterval(timerInterval); // Остановить интервал, когда время вышло
+            gameOver = true;
+            showModal('Время вышло. Хотите попробовать снова?', true, true);
+        } else {
+            var remainingTime = Math.ceil((600000 - (currentTime - startTime)) / 1000); // Оставшееся время в секундах
+            $("#timerCounter").text("Время: " + formatTime(remainingTime));
+        }
+    }, 1000); // Обновлять каждую секунду (1000 миллисекунд)
+}
+
+function stopTimer() {
+    clearInterval(timerInterval); // Остановить таймер
+}
+
+function showGameOverScreen() {
+   document.getElementById("overlay").style.display = "block"; // Показать оверлей
+   document.getElementById("popup").style.display = "block"; // Показать попап
+}
+
+function hideGameOverScreen() {
+    document.getElementById("overlay").style.display = "none"; // Скрыть оверлей
+  document.getElementById("popup").style.display = "none"; // Скрыть попап
+}
+
+function formatTime(seconds) {
+    var minutes = Math.floor(seconds / 60);
+    var remainingSeconds = seconds % 60;
+    return minutes + "м " + remainingSeconds + "с";
+}
+
 //////////////////////////////////
 
 var pdfViewer = null;
@@ -157,10 +191,10 @@ function openShelfPopup() {
     overlay.append(popup);
 
     // Добавляем галочку для подтверждения выбора
-    var confirmCheckbox = $('<div class="confirm">Подтвердить выбор</div>');
+    var confirmCheckbox = $('<div class="confirm">Выбрать</div>');
     overlay.append(confirmCheckbox);
 
-    var hintText = $('<div class="hint-text"> <img src="img/hint.svg"> <span class="tooltip-text">Нажмите 2 раза ЛКМ, чтобы выбрать препарат. Для удаления препарата нажмите по нему 2 раза ЛКМ.</span> </div>');
+    var hintText = $('<div class="hint-text"> <img src="img/hint.svg"> <span class="tooltip-text">Нажми два раза ЛКМ по упаковке, чтобы выбрать или отменить выбор</span> </div>');
     overlay.append(hintText);
 
     // Добавляем фоновую картинку
@@ -198,50 +232,75 @@ function showSelectedMedications() {
     var correctMedications = [];
     if (level == 1) {
         correctMedications = ['Но-шпа', 'Тримедат', 'Иберогаст'];
-        console.log("Уровень 1 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 1
+        console.log("Уровень 1 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 2) {
         correctMedications = ['Тизин', 'Виброцил', 'Називин', 'Аквамарис', 'Сиалор аква', 'Фликсоназе'];
-        console.log("Уровень 2 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 2
+        console.log("Уровень 2 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 3) {
-        correctMedications = ['Амиксин', 'Гриппферон', 'Виферон', 'Ингавирин'];
-        console.log("Уровень 3 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 2
+        correctMedications = ['Амиксин', 'Гриппферон', 'Виферон', 'Ингавирин', 'Циклоферон'];
+        console.log("Уровень 3 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 4) {
         correctMedications = ['Пантенол', 'Банеоцин', 'Бепантен'];
-        console.log("Уровень 4 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 2
+        console.log("Уровень 4 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 5) {
-        correctMedications = ['Афобазол', 'Персен', 'Новопассит'];
-        console.log("Уровень 4 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 2
-    } else if (level == 5) {
-        correctMedications = ['Супрадин', 'Ундевит', 'Берокка'];
-        console.log("Уровень 4 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 2
-    } 
-    
-    // Добавьте другие уровни по необходимости
-    console.log("Выбранные препараты:", selectedMeds); // Выводим выбранные пользователем препараты
+        correctMedications = ['Афобазол', 'Персен', 'Новопассит', "Тенотен"];
+        console.log("Уровень 5 выбран, ожидаемые препараты:", correctMedications);
+    } else if (level == 6) {
+        correctMedications = ['Супрадин', 'Ундевит', 'Берокка', 'Пентовит'];
+        console.log("Уровень 6 выбран, ожидаемые препараты:", correctMedications);
+    }
 
-    var isCorrectSelection = selectedMeds.length === 3 && selectedMeds.every(function (med) {
-        return correctMedications.includes(med);
-    });
+    console.log("Выбранные препараты:", selectedMeds);
+
+    var isCorrectSelection = false;
+
+    if (level == 3) {
+        // Проверка для уровня 3
+        isCorrectSelection =
+            selectedMeds.length === 3 &&
+            selectedMeds.includes('Амиксин') &&
+            selectedMeds.filter(function (med) {
+                return correctMedications.includes(med);
+            }).length === 3;
+    } else if (level == 5){
+        isCorrectSelection =
+            selectedMeds.length === 3 &&
+            selectedMeds.includes('Афобазол') &&
+            selectedMeds.filter(function (med) {
+                return correctMedications.includes(med);
+            }).length === 3;
+    } else if (level == 6){
+        isCorrectSelection =
+            selectedMeds.length === 3 &&
+            selectedMeds.includes('Супрадин') &&
+            selectedMeds.filter(function (med) {
+                return correctMedications.includes(med);
+            }).length === 3;
+    } else {
+        // Общая проверка для других уровней
+        isCorrectSelection = 
+            selectedMeds.length === 3 && 
+            selectedMeds.every(function (med) {
+                return correctMedications.includes(med);
+            });
+    }
 
     if (selectedMeds.length < 3) {
-        console.log("Недостаточно выбранных препаратов."); // Выводим сообщение о недостаточном выборе
+        console.log("Недостаточно выбранных препаратов.");
         showModal('Выберите как минимум 3 препарата.', true, true);
     } else if (!isCorrectSelection) {
-        console.log("Неверный выбор препаратов."); // Выводим сообщение об ошибке выбора
+        console.log("Неверный выбор препаратов.");
         showModal('Вы допустили ошибку. Выберите правильные препараты.', true, true);
         blockBackground();
     } else {
-        console.log("Правильный выбор препаратов:", selectedMeds); // Выводим сообщение об успешном выборе
-        showModal('Вы выбрали: ' + selectedMeds.join(', '));
+        console.log("Правильный выбор препаратов:", selectedMeds);
+        // showModal('Вы выбрали: ' + selectedMeds.join(', '));
     }
 }
-
-
 
 function blockBackground() {
     var overlay = $('<div id="overlay-blocking"></div>');
     $('body').append(overlay);
-
     overlay.fadeIn();
 }
 
@@ -307,12 +366,10 @@ function showModal(content, hasReturnButton, isError) {
     });
 }
 
-
 function openModal() {
     var modal = $('#modal');
     modal.css('display', 'block');
 }
-
 
 // Добавьте новую функцию для закрытия попапа с полками
 function closeShelfPopup() {
@@ -542,41 +599,6 @@ function goToIndexPage() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-
-function startTimer() {
-    timerInterval = setInterval(function () {
-        var currentTime = new Date().getTime();
-        if (currentTime - startTime >= 600000) { // 600000 миллисекунд = 10 минут
-            clearInterval(timerInterval); // Остановить интервал, когда время вышло
-            gameOver = true;
-            showGameOverScreen();
-        } else {
-            // Обновляем таймер и отображаем его на экране
-            var remainingTime = Math.ceil((600000 - (currentTime - startTime)) / 1000); // Оставшееся время в секундах
-            $("#timerCounter").text("Время: " + formatTime(remainingTime));
-        }
-    }, 1000); // Обновлять каждую секунду (1000 миллисекунд)
-}
-
-function stopTimer() {
-    clearInterval(timerInterval); // Остановить таймер
-}
-
-function showGameOverScreen() {
- document.getElementById("overlay").style.display = "block"; // Показать оверлей
-   document.getElementById("popup").style.display = "block"; // Показать попап
-}
-
-function hideGameOverScreen() {
-    document.getElementById("overlay").style.display = "none"; // Скрыть оверлей
-  document.getElementById("popup").style.display = "none"; // Скрыть попап
-}
-
-function formatTime(seconds) {
-    var minutes = Math.floor(seconds / 60);
-    var remainingSeconds = seconds % 60;
-    return minutes + "м " + remainingSeconds + "с";
-}
 
 document.getElementById("restartButton").addEventListener("click", function() {
  // Здесь вы можете добавить код для перезапуска уровня
