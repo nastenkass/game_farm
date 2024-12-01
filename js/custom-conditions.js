@@ -181,13 +181,45 @@ function closePopup() {
     window.location.href = "end.html";
 }
 
-//A dictionary of all the known custom conditions, and the function they use to be evaluated.
-//Don't forget to add your own "name":function pairs here, too!
+let blockedChoices = [];
+
+function blockChoice(condition) {
+    const number = parseInt(condition.options[0]); // Получаем идентификатор ответа
+    if (!isNaN(number)) {
+        const target = `choiseAnswer_${number}`;
+        if (!blockedChoices.includes(target)) {
+            blockedChoices.push(target); // Сохраняем заблокированный вариант
+        }
+        updateBlockedChoices(); // Обновляем DOM для всех заблокированных вариантов
+    } else {
+        console.error('Invalid number for kick_choice');
+    }
+    return true;
+}
+
+function updateBlockedChoices() {
+    // Перебираем все заблокированные варианты
+    blockedChoices.forEach(target => {
+        const element = document.querySelector(`.choice[data-target="${target}"]`);
+        if (element) {
+            // Убираем обработчик клика, чтобы предотвратить действия
+            element.addEventListener('click', function(event) {
+                event.preventDefault();
+            });
+
+            // Добавляем класс для визуальной блокировки
+            element.classList.add('blocked');
+        }
+    });
+}
+
+
 var customConditions = {
   "random": evaluateRandomCondition,
   "check_answer": checkAnswer,
   "turn_on_pc": turnOnComputer,
   "shelf": openShelf,
   "point": pointAmount,
+  "kick_choice": blockChoice,
   /* "custom":myCustomCondition, */
 };

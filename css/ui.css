@@ -148,6 +148,12 @@
     border-radius: 10px;
 }
 
+.choice.disabled {
+    opacity: 0.5; /* Снижение прозрачности */
+    pointer-events: none; /* Блокировка кликов */
+    cursor: not-allowed; /* Изменение курсора мыши */
+}
+
   /* choice */
 
 #characterName
@@ -370,6 +376,11 @@
   
 #closePopup::after {
     transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.choice.blocked {
+    opacity: 0.5; /* или любые другие стили, указывающие на недоступность */
+    pointer-events: none; /* Чтобы пользователь не мог кликнуть снова */
 }
 
 

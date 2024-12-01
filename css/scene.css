@@ -20,17 +20,8 @@
 }
 
 #container[character="noname"] .character {
-    left: 300px;
-	top: -100px;
-}
-
-#container[character="noname"] #characterName
-{
-	color:rgb(131, 131, 131);
-}
-#container[character="sick1"] #characterName
-{
-	color:rgb(190, 156, 229);
+	width: s350px;
+	top: 200px;
 }
 
 #container[place="street"] #placeName
