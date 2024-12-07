@@ -1,0 +1,204 @@
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/inter.min.css");
+
+body {
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    position: relative; /* To contain the pseudo-element */
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 3%; /* Top margin */
+    left: 3%; /* Left margin */
+    right: 3%; /* Right margin */
+    bottom: 3%; /* Bottom margin */
+    background-image: url('../img/end_background.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%; /* Fill the pseudo-element */
+    background-attachment: fixed; /* Keep the background static */
+    z-index: -1; /* Ensure it's behind the content */
+    border-radius: 40px;
+}
+
+.column-1, .column-2{
+    margin: 100px;
+    height: 80%;
+}
+
+.column-1{
+    margin-right: 0px;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-1{
+    font-size: 32px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(0, 121, 193, 1);
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 10px 20px;
+    border-radius: 15px;
+    margin-bottom: 50px;
+    width: 35%;
+}
+
+.text-2{
+    font-size: 62px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 800;
+    line-height: 75px;
+    margin-bottom: 5px;
+}
+
+.text-3 {
+    color: rgba(255, 255, 255, 1);
+    font-size: 28px;
+    text-transform: capitalize;
+    font-weight: 700;
+    border: 3px white solid;
+    width: 20%;
+    border-radius: 100px;
+    padding: 5px 10px;
+    transform: rotate(10deg);
+    align-self: flex-end;
+    margin-right: 300px;
+    text-align: center;
+}
+
+.text-4{
+    font-size: 25px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+    margin-top: 40px;
+}
+
+.container-author{
+    display: flex;
+    margin-top: 150px;
+}
+
+.photo img{
+    width: 90px;
+    border: 4px white solid;
+    border-radius: 100%;
+}
+
+.photo{
+    z-index: 9999;
+}
+
+.item-1{
+    display: flex;
+    align-items: center;
+    margin-right: 45px;
+}
+
+.name{
+    font-size: 18px;
+    font-weight: 400;
+    margin-left: 15px;
+}
+
+.regalia{
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    color: rgba(0, 121, 193, 1);
+    margin-left: 15px;
+}
+
+.column-2{
+    margin-left: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-name{
+    background-color: white;
+    padding: 8px 30px;
+    border-radius: 20px;
+    margin-left: -30px;
+    width: 200px;
+}
+
+.container-button{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    height: 50px;
+    margin-left: auto;
+}
+
+.container-button a{
+    margin-right: 25px;
+    font-size: 38px;
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+}
+
+.container-qr {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* This will push the text to the bottom */
+    margin-top: 200px;
+    height: 100%; /* Ensure the container takes full height available */
+    margin-bottom: 160px;
+}
+
+.text-qr {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: auto; /* Push the text to the bottom */
+}
+
+.container-text-qr{
+    margin-top: auto;
+}
+
+.container-text-qr svg{
+    margin-bottom: 35px;
+    margin-left: 70px;
+}
+
+.qr {
+    position: relative;
+    width: 331px;
+    height: 317px;
+    margin-top: auto;
+}
+
+.qr svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.qr .qr-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 135px; /* Adjust the width as needed */
+}

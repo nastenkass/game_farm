@@ -248,6 +248,9 @@ function showSelectedMedications() {
     } else if (level == 6) {
         correctMedications = ['Супрадин', 'Ундевит', 'Берокка', 'Пентовит'];
         console.log("Уровень 6 выбран, ожидаемые препараты:", correctMedications);
+    } else if (level == 7) {
+        correctMedications = ['Нурофен', 'Вольтарен', 'Кеторол', 'Найз_активгель'];
+        console.log("Уровень 7 выбран, ожидаемые препараты:", correctMedications);
     }
 
     console.log("Выбранные препараты:", selectedMeds);

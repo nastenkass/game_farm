@@ -2,7 +2,7 @@ var characters =
 {
 	"pharmacist_2":{
 	  "poses":{
-		"default": "img/woman2.png"
+		"default": "img/woman_2.png"
 	  },
 	  "name":"Фармацевт"
 	},
@@ -16,7 +16,7 @@ var characters =
   
 	"sick2":{
 	  "poses":{
-		"default":"img/woman2.png",
+		"default":"img/woman_2.png",
 		"angry":"img/VN_chara001_neutral.png",
 		"ok": "img/VN_chara001_happy.png"
 	  },
