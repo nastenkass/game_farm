@@ -243,19 +243,49 @@ function showSelectedMedications() {
         correctMedications = ['Пантенол', 'Банеоцин', 'Бепантен'];
         console.log("Уровень 4 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 5) {
-        correctMedications = ['Афобазол', 'Персен', 'Новопассит'];
-        console.log("Уровень 4 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 2
-    } else if (level == 5) {
-        correctMedications = ['Супрадин', 'Ундевит', 'Берокка'];
-        console.log("Уровень 4 выбран, ожидаемые препараты:", correctMedications); // Выводим корректные препараты для уровня 2
-    } 
+        correctMedications = ['Афобазол', 'Персен', 'Новопассит', "Тенотен"];
+        console.log("Уровень 5 выбран, ожидаемые препараты:", correctMedications);
+    } else if (level == 6) {
+        correctMedications = ['Супрадин', 'Ундевит', 'Берокка', 'Пентовит'];
+        console.log("Уровень 6 выбран, ожидаемые препараты:", correctMedications);
+    } else if (level == 7) {
+        correctMedications = ['Нурофен', 'Вольтарен', 'Кеторол', 'Найз_активгель'];
+        console.log("Уровень 7 выбран, ожидаемые препараты:", correctMedications);
+    }
     
-    // Добавьте другие уровни по необходимости
-    console.log("Выбранные препараты:", selectedMeds); // Выводим выбранные пользователем препараты
-
-    var isCorrectSelection = selectedMeds.length === 3 && selectedMeds.every(function (med) {
-        return correctMedications.includes(med);
-    });
+    console.log("Выбранные препараты:", selectedMeds);
+    
+    var isCorrectSelection = false;
+    if (level == 3) {
+        // Проверка для уровня 3
+        isCorrectSelection =
+            selectedMeds.length === 3 &&
+            selectedMeds.includes('Амиксин') &&
+            selectedMeds.filter(function (med) {
+                return correctMedications.includes(med);
+            }).length === 3;
+    } else if (level == 5){
+        isCorrectSelection =
+            selectedMeds.length === 3 &&
+            selectedMeds.includes('Афобазол') &&
+            selectedMeds.filter(function (med) {
+                return correctMedications.includes(med);
+            }).length === 3;
+    } else if (level == 6){
+        isCorrectSelection =
+            selectedMeds.length === 3 &&
+            selectedMeds.includes('Супрадин') &&
+            selectedMeds.filter(function (med) {
+                return correctMedications.includes(med);
+            }).length === 3;
+    } else {
+        // Общая проверка для других уровней
+        isCorrectSelection = 
+            selectedMeds.length === 3 && 
+            selectedMeds.every(function (med) {
+                return correctMedications.includes(med);
+            });
+    }
 
     if (selectedMeds.length < 3) {
         console.log("Недостаточно выбранных препаратов.");
