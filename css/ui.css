@@ -184,10 +184,11 @@
 	color:rgb(20, 20, 20);
 }
 
-#pc {
+#pc, #recipe {
     position: relative;
     width: 370px;
     top: 160px;
+    margin-bottom: 30px;
     background-color: rgba(29, 53, 83, 0.9);
     border-radius: 0px 30px 30px 0px;
     border: #ffffff 5px solid;
@@ -196,15 +197,17 @@
     transition: transform 0.5s ease-in-out;
 }
 
-#pc.show {
+#pc.show, #recipe.show {
     transform: translateX(0);
 }
 
-#pc img {
+#pc img, #recipe img {
     width: 230px;
     display: block;
     margin: 0 auto;
 }
+
+
 
 /* Анимация пульсации для изображения */
 @keyframes pulse {
@@ -232,7 +235,7 @@
   }
 }
 
-#pc.highlight img {
+#pc.highlight img, #recipe.highlight img {
    /* Выберите одну из анимаций ниже */
    /* Для пульсации прозрачности */
    /* animation: pulse 1s infinite; */
@@ -242,17 +245,17 @@
 }
 
 /* Остальные стили остаются без изменений */
-#pc.highlight {
+#pc.highlight, #recipe.highlight {
    cursor: pointer;
    position: relative; /* Добавляем позиционирование для ::after */
 }
 
-#pc.highlight:hover::before {
+#pc.highlight:hover::before, #recipe.highlight:hover::before {
    box-shadow: 0 0 20px 10px rgb(255, 174, 0);
    animation: none; /* Отключаем pulse при наведении */
 }
 
-#pc.highlight::after {
+#pc.highlight::after, #recipe.highlight::after {
    content: attr(data-tooltip); /* Получаем значение атрибута data-tooltip */
    position: absolute;
    top: -30px; /* Расположение выше элемента */
@@ -268,7 +271,7 @@
    transition: opacity 0.3s ease;
 }
 
-#pc.highlight:hover::after {
+#pc.highlight:hover::after, #recipe.highlight:hover::after {
     opacity: 1;
 }
 
@@ -349,33 +352,35 @@
     color: #4b52af;
 }
 
-#closePopup{
-    position: relative;
-  width: 30px;
-  height: 30px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+#closePopup, #closeRecipePopup {
+    position: absolute; /* Фиксируем относительно родительского контейнера */
+    top: 5%; /* Отступ сверху */
+    left: 5%; /* Отступ слева */
+    width: 30px; /* Размер кнопки */
+    height: 30px; /* Размер кнопки */
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+    cursor: pointer; /* Курсор в виде указателя */
+    z-index: 10; /* Чтобы кнопка была выше содержимого */
 }
 
 #closePopup::before,
-#closePopup::after {
-  content: '';
-  position: absolute;
-  left: 740px;
-  bottom: 770px;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  height: 2px;
-  background-color: #00043b;
+#closePopup::after,
+#closeRecipePopup::before,
+#closeRecipePopup::after {
+    content: '';
+    position: absolute;
+    top: 50%; /* Центрируем по вертикали */
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translate(-50%, -50%) rotate(45deg); /* Расположение линий крестика */
+    width: 100%; /* Длина линии крестика */
+    height: 2px; /* Толщина линии */
+    background-color: #00043b; /* Цвет линии */
 }
 
-#closePopup::before {
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-  
-#closePopup::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
+#closePopup::after,
+#closeRecipePopup::after {
+    transform: translate(-50%, -50%) rotate(-45deg); /* Вторая линия крестика */
 }
 
 .choice.blocked {

@@ -98,6 +98,24 @@ var turnOnComputer = function (condition) {
 
 ////////////////////////////////////////////////////////////////////////////////////
 
+function showRecipe(number) {
+    if (number === 1) {
+        canClickComputer = true;
+        $('#recipe').addClass('highlight show'); // Добавляем классы highlight и show
+    } else {
+        canClickComputer = false;
+        $('#recipe').finish().removeClass('highlight show'); // Удаляем классы highlight и show
+    }
+}
+
+var showOnScreenRecipe = function (condition) {
+    number = parseInt(condition.options[0]);
+    showRecipe(number);
+    return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
 var openShelf = function (condition) {
     number = parseInt(condition.options[0]);
     openShelfPopup();
@@ -181,38 +199,6 @@ function closePopup() {
     window.location.href = "end.html";
 }
 
-let blockedChoices = [];
-
-function blockChoice(condition) {
-    const number = parseInt(condition.options[0]); // Получаем идентификатор ответа
-    if (!isNaN(number)) {
-        const target = `choiseAnswer_${number}`;
-        if (!blockedChoices.includes(target)) {
-            blockedChoices.push(target); // Сохраняем заблокированный вариант
-        }
-        updateBlockedChoices(); // Обновляем DOM для всех заблокированных вариантов
-    } else {
-        console.error('Invalid number for kick_choice');
-    }
-    return true;
-}
-
-function updateBlockedChoices() {
-    // Перебираем все заблокированные варианты
-    blockedChoices.forEach(target => {
-        const element = document.querySelector(`.choice[data-target="${target}"]`);
-        if (element) {
-            // Убираем обработчик клика, чтобы предотвратить действия
-            element.addEventListener('click', function(event) {
-                event.preventDefault();
-            });
-
-            // Добавляем класс для визуальной блокировки
-            element.classList.add('blocked');
-        }
-    });
-}
-
 
 var customConditions = {
   "random": evaluateRandomCondition,
@@ -220,6 +206,6 @@ var customConditions = {
   "turn_on_pc": turnOnComputer,
   "shelf": openShelf,
   "point": pointAmount,
-  "kick_choice": blockChoice,
+  "recipe": showOnScreenRecipe,
   /* "custom":myCustomCondition, */
 };

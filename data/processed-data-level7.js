@@ -227,7 +227,7 @@ var characters =
     {
 		"title": "nextScene7",
 		"tags": "",
-		"body": "{{sick1}}Есть ли особенности применения в зависимости от приѐма пищи?»\n{{pharmacist_1}}[[Препарат необходимо принимать во время еды|nextScene8|<<check_answer 1>> <<point 1>>]]\n[[Препарат необходимо принимать до еды|nextScene8|<<check_answer 0>>]]\n[[Прием препарата не зависит от приема пищи|nextScene8|<<check_answer 0>>]]{{pharmacist_1}}",
+		"body": "{{sick1}}Есть ли особенности применения в зависимости от приѐма пищи?\n{{pharmacist_1}}[[Препарат необходимо принимать во время еды|nextScene8|<<check_answer 1>> <<point 1>>]]\n[[Препарат необходимо принимать до еды|nextScene8|<<check_answer 0>>]]\n[[Прием препарата не зависит от приема пищи|nextScene8|<<check_answer 0>>]]{{pharmacist_1}}",
 		"position": {	
 			"x": 563,
 			"y": 322

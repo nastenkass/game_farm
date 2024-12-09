@@ -72,19 +72,65 @@ function formatTime(seconds) {
 
 //////////////////////////////////
 
+const levelImages = {
+    9: 'img/level9-recipe.png',
+    
+};
+
+function openRecipePopup() {
+    if (canClickComputer) {
+        // Получаем текущий уровень
+        const level = window.currentLevel;
+
+        // Проверяем, есть ли изображение для этого уровня
+        const imagePath = levelImages[level];
+        if (!imagePath) {
+            console.error('Изображение для уровня', level, 'не найдено.');
+            return;
+        }
+
+        if ($('#recipePopup').length === 0) {
+            const popup = $(
+                '<div id="recipePopup" class="popup">\
+                    <button id="closeRecipePopup"></button>\
+                    <div id="imageContainer"></div>\
+                </div>'
+            );
+            $('body').append(popup);
+            $('#closeRecipePopup').on('click', function () {
+                $('#recipePopup').fadeOut();
+            });
+        }
+
+        // Обновляем содержимое попапа
+        $('#imageContainer').html('<img src="' + imagePath + '" alt="Recipe Image" style="max-width: 100%; max-height: 95vh;">');
+
+        // Показываем попап
+        $('#recipePopup').fadeIn();
+
+    } 
+}
+
+$('#recipe').on('click', function() {
+    openRecipePopup(); // Открываем попап для текущего уровня
+});
+
+
+//////////////////////////////////
+
 var pdfViewer = null;
 
 function openFilePopup(filePath) {
     if (canClickComputer) {
         if ($('#filePopup').length === 0) {
-            var popup = $('<div id="filePopup" class="popup">\
-                              <div id="pdfContainer"></div>\
-                              <button id="closePopup"></button>\
-                              <div id="buttonContainer"></div>\
-                            </div>');
-
+            const popup = $(
+                '<div id="filePopup" class="popup">\
+                    <button id="closePopup"></button>\
+                    <div id="pdfContainer"></div>\
+                    <div id="buttonContainer"></div>\
+                </div>'
+            );
             $('body').append(popup);
-
             $('#closePopup').on('click', closeFilePopup);
         }
 
@@ -251,6 +297,9 @@ function showSelectedMedications() {
     } else if (level == 7) {
         correctMedications = ['Нурофен', 'Вольтарен', 'Кеторол', 'Найз_активгель'];
         console.log("Уровень 7 выбран, ожидаемые препараты:", correctMedications);
+    } else if (level == 9) {
+        correctMedications = ['Глюкофаж', 'Мерифатин', 'Метформин'];
+        console.log("Уровень 9 выбран, ожидаемые препараты:", correctMedications);
     }
     
     console.log("Выбранные препараты:", selectedMeds);
@@ -300,17 +349,17 @@ function showSelectedMedications() {
     }
 }
 
-function blockBackground() {
-    var overlay = $('<div id="overlay-blocking"></div>');
-    $('body').append(overlay);
-    overlay.fadeIn();
-}
-
 function closeModal() {
     var modal = $('#modal');
     modal.css('display', 'none');
     // Удаляем блокировку заднего фона при закрытии модального окна
     unblockBackground();
+}
+
+function blockBackground() {
+    var overlay = $('<div id="overlay-blocking"></div>');
+    $('body').append(overlay);
+    overlay.fadeIn();
 }
 
 function unblockBackground() {
