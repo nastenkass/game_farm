@@ -74,6 +74,7 @@ function formatTime(seconds) {
 
 const levelImages = {
     9: 'img/level9-recipe.png',
+    10: 'img/level10-recipe.png',
     
 };
 
@@ -297,9 +298,15 @@ function showSelectedMedications() {
     } else if (level == 7) {
         correctMedications = ['Нурофен', 'Вольтарен', 'Кеторол', 'Найз_активгель'];
         console.log("Уровень 7 выбран, ожидаемые препараты:", correctMedications);
+    } else if (level == 8) {
+        correctMedications = ['Фитолизин', 'Канефрон', 'Цистон'];
+        console.log("Уровень 8 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 9) {
         correctMedications = ['Глюкофаж', 'Мерифатин', 'Метформин'];
         console.log("Уровень 9 выбран, ожидаемые препараты:", correctMedications);
+    } else if (level == 10) {
+        correctMedications = ['Аторвастатин', 'Аторис', 'Липримар'];
+        console.log("Уровень 10 выбран, ожидаемые препараты:", correctMedications);
     }
     
     console.log("Выбранные препараты:", selectedMeds);
@@ -440,7 +447,7 @@ function generateShelves() {
         { name: 'Аторис', image: 'medicines/аторис.png', description1: 'Аторис', description2:'(таблетки 20 мг)'},
         { name: 'Афобазол', image: 'medicines/афобазол.png', description1: 'Афобазол', description2: '(таблетки 10 мг)'},
         { name: 'Виброцил', image: 'medicines/виброцил.png', description1: 'Виброцил', description2:'(капли)'},
-        { name: 'Аторвастин', image: 'medicines/аторвастин.png', description1: 'Аторвастатин', description2:'(таблетки 20 мг)'},
+        { name: 'Аторвастатин', image: 'medicines/аторвастин.png', description1: 'Аторвастатин', description2:'(таблетки 20 мг)'},
         { name: 'Амоксиклав', image: 'medicines/амоксиклав.png', description1: 'Амоксиклав', description2:'(таблетки 875 мг+125 мг)'},
         { name: 'Берокка', image: 'medicines/берокка.png', description1: 'Берокка Плюс', description2:'(таблетки)'},
         { name: 'Бепантен', image: 'medicines/бепантен.png', description1: 'Бепантен', description2:'(крем 5%, мазь 5%)'},

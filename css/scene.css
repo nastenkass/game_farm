@@ -1,27 +1,23 @@
 .character
 {
 	position:absolute;
-	width:550px;
+	width:900px;
 	height:1200px;
-	left:500px;
-	top:100px;
+	left:300px;
+	top: 100px;
 	background-repeat:no-repeat;
 	background-size: contain; /* Обеспечивает масштабирование изображения */
 }
 
-#container[character="alice"] .character
+#container[character="noname"] .character
 {
-	left:100px;
+	width:900px;
+	height:1000px;
 }
 
 #container[character="default"] #characterName
 {
 	color:rgb(128, 232, 255);
-}
-
-#container[character="noname"] .character {
-	width: s350px;
-	top: 200px;
 }
 
 #container[place="street"] #placeName

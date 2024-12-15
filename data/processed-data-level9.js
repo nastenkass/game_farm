@@ -2,21 +2,21 @@ var characters =
 {
 	"pharmacist_1":{
 	  "poses":{
-		"default": "img/woman1.png"
+		"default": "img/pacient_9.png"
 	  },
 	  "name":"Фармацевт"
 	},
   
 	"noname":{
 	  "poses":{
-		"default":"img/woman1_hide2.png"
+		"default":"img/pacient_9.png"
 	  },
 	  "name":"Посетитель"
 	},
   
 	"sick1":{
 	  "poses":{
-		"default":"img/woman1.png",
+		"default":"img/pacient_9.png",
 		"angry":"img/VN_chara001_neutral.png",
 		"ok": "img/VN_chara001_happy.png"
 	  },
@@ -73,7 +73,7 @@ var characters =
     {
 		"title": "nextScene2",
 		"tags": "",
-		"body": "{{pharmacist_1}}[[Давайте уточним взрослому или ребенку назначен препарат|choiseAnswer1|<<check_answer 1>> <<point 1>> <<recipe 1>>]]\n[[Расскажите есть ли другие заболевания?|choiseAnswer2|<<check_answer 1>> <<point 22>>]]\n[[Применяете ли на данный момент другие препараты?|choiseAnswer3|<<check_answer 1>> <<point 22>>]]\n[[Есть ли особые состояния здоровья: беременность, кормление грудью?|choiseAnswer4|<<check_answer 1>> <<point 1>>]]\n[[<b>На основе полученной от Вас информации, я могу порекомендовать Вам... (Закончить сбор информации)</b>|nextScene3|<<shelf 1>> <<point 3>>]]{{pharmacist_1}}",
+		"body": "{{pharmacist_1}}[[Давайте уточним взрослому или ребенку назначен препарат|choiseAnswer1|<<check_answer 1>> <<point 1>> <<recipe 1>>]]\n[[Расскажите есть ли другие заболевания?|choiseAnswer2|<<check_answer 1>> <<point 22>>]]\n[[Применяете ли на данный момент другие препараты?|choiseAnswer3|<<check_answer 1>> <<point 22>>]]\n[[Есть ли особые состояния здоровья: беременность, кормление грудью?|choiseAnswer4|<<check_answer 1>> <<point 1>>]]\n[[<b>В нашей аптеке, назначенный вам препарат, есть под торговыми наименованиями... (Закончить сбор информации)</b>|nextScene3|<<shelf 1>> <<point 3>>]]{{pharmacist_1}}",
 		"position": {
 			"x": 563,
 			"y": 322
@@ -95,7 +95,7 @@ var characters =
     {
 		"title": "choiseAnswer2",
 		"tags": "",
-		"body": "{{sick1}}В моем анамнезе есть артериальная гипертензия и стабильная стенокардия{{sick1}}\n{{pharmacist_1}}[[<i>Вернуться к списку вопросов</i>|nextScene2]]\n[[<b>На основе полученной от Вас информации, я могу порекомендовать Вам... (Закончить сбор информации)</b>|nextScene3|<<shelf 1>> <<point 3>>]]{{pharmacist_1}}",
+		"body": "{{sick1}}В моем анамнезе есть артериальная гипертензия и стабильная стенокардия{{sick1}}\n{{pharmacist_1}}[[<i>Вернуться к списку вопросов</i>|nextScene2]]\n[[<b>В нашей аптеке, назначенный вам препарат, есть под торговыми наименованиями... (Закончить сбор информации)</b>|nextScene3|<<shelf 1>> <<point 3>>]]{{pharmacist_1}}",
 		"position": {	
 			"x": 563,
 			"y": 322
@@ -106,7 +106,7 @@ var characters =
     {
 		"title": "choiseAnswer3",
 		"tags": "",
-		"body": "{{sick1}}Принимаю еще Амлодипин{{sick1}}\n{{pharmacist_1}}[[<i>Вернуться к списку вопросов</i>|nextScene2]]\n[[<b>На основе полученной от Вас информации, я могу порекомендовать Вам... (Закончить сбор информации)</b>|nextScene3|<<shelf 1>> <<point 3>>]]{{pharmacist_1}}",
+		"body": "{{sick1}}Принимаю еще Амлодипин{{sick1}}\n{{pharmacist_1}}[[<i>Вернуться к списку вопросов</i>|nextScene2]]\n[[<b>В нашей аптеке, назначенный вам препарат, есть под торговыми наименованиями... (Закончить сбор информации)</b>|nextScene3|<<shelf 1>> <<point 3>>]]{{pharmacist_1}}",
 		"position": {	
 			"x": 563,
 			"y": 322
@@ -117,7 +117,7 @@ var characters =
     {
 		"title": "choiseAnswer4",
 		"tags": "",
-		"body": "{{sick1}}Отсутствуют. Какие наименования препаратов есть в вашей аптеке?{{sick1}}\n{{pharmacist_1}}[[<i>Вернуться к списку вопросов</i>|nextScene2]]\n[[<b>На основе полученной от Вас информации, я могу порекомендовать Вам... (Закончить сбор информации)</b>|nextScene3|<<shelf 1>> <<point 3>>]]{{pharmacist_1}}",
+		"body": "{{sick1}}Отсутствуют. Какие наименования препаратов есть в вашей аптеке?{{sick1}}\n{{pharmacist_1}}[[<i>Вернуться к списку вопросов</i>|nextScene2]]\n[[<b>В нашей аптеке, назначенный вам препарат, есть под торговыми наименованиями... (Закончить сбор информации)</b>|nextScene3|<<shelf 1>> <<point 3>>]]{{pharmacist_1}}",
 		"position": {	
 			"x": 563,
 			"y": 322
@@ -139,7 +139,7 @@ var characters =
     {
 		"title": "nextScene4",
 		"tags": "",
-		"body": "{{sick1}}Я бы хотела приобрести <bГлюкофаж Лонг</b>\n{{sick1}}В каких лекарственных формах данный препарат в наличии в аптеке?\n{{pharmacist_1}}[[Данный препарат в наличии в аптеке в виде раствора|nextScene5|<<check_answer 0>>]]\n[[Данный препарат в наличии в аптеке в виде таблеток|nextScene5|<<check_answer 1>> <<point 1>>]]\n[[Данный препарат в наличии в аптеке в виде капсул|nextScene5|<<check_answer 0>>]]\n[[Данный препарат в наличии в аптеке в виде порошка|nextScene5|<<check_answer 0>>]]{{pharmacist_1}}",
+		"body": "{{sick1}}Я бы хотела приобрести <b>Глюкофаж Лонг</b>\n{{sick1}}В каких лекарственных формах данный препарат в наличии в аптеке?\n{{pharmacist_1}}[[Данный препарат в наличии в аптеке в виде раствора|nextScene5|<<check_answer 0>>]]\n[[Данный препарат в наличии в аптеке в виде таблеток|nextScene5|<<check_answer 1>> <<point 1>>]]\n[[Данный препарат в наличии в аптеке в виде капсул|nextScene5|<<check_answer 0>>]]\n[[Данный препарат в наличии в аптеке в виде порошка|nextScene5|<<check_answer 0>>]]{{pharmacist_1}}",
 		"position": {	
 			"x": 563,
 			"y": 322
