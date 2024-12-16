@@ -1,111 +1,117 @@
 @import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/inter.min.css");
-body{
-	font-family: 'Inter', sans-serif;
-	overflow: hidden;
+
+body {
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-	display: flex;
-	gap: 50px; /* Расстояние между колонками */
-	width: 100%; /* Ширина контейнера равна ширине экрана */
-	margin: 60px 50px;
+    display: flex;
+    flex-wrap: nowrap; /* Колонки остаются в строке до активации медиазапроса */
+    gap: 20px; /* Расстояние между колонками */
+    width: 95%; /* Ширина контейнера равна 90% экрана */
+    margin: 40px auto; /* Центрируем контейнер и добавляем отступ сверху */
 }
 
 .column {
-	flex-basis: 545px; /* Ширина первой колонки */
+    flex: 1 1 45%; /* Задает минимальную ширину колонки 45% и возможность увеличения */
+    min-width: 300px; /* Минимальная ширина колонки */
+    padding: 10px; /* Добавляем внутренние отступы для пространства вокруг контента */
+    box-sizing: border-box; /* Включаем отступы в расчёт ширины */
+
+	display: flex;
+    flex-direction: column;
+
 }
 
 .second-column {
-	flex-grow: 1; /* Вторая колонка растягивается на оставшееся пространство */
+    flex: 1 1 50%; /* Растягивается на половину экрана */
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 #logo img {
-	width: 270px;
-	margin-bottom: 50px;
+    width: 200px;
+    margin-bottom: 30px;
+    max-width: 100%;
 }
 
-#blue{
-	font-size: 38px;
-	background-color: rgba(0, 121, 193, 1);
-	display: inline-block; /* Используем inline-block для ограничения ширины */
-	max-width: 100%; /* Ограничиваем ширину текста */
-	text-align: center; /* Центрируем текст внутри элемента */
-	padding: 10px; /* Добавляем внутренний отступ для более красивого вида */
-	color: aliceblue;
-	border-radius: 50px;
-	padding: 12px 30px;
-	font-weight: 600;
-	margin-bottom: 50px;
+#blue {
+    font-size: 1.5rem; /* Используем rem для гибкости размера */
+    background-color: rgba(0, 121, 193, 1);
+    display: inline-block;
+    max-width: 40%;
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+    color: aliceblue;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+
+
 }
 
-#text{
-	font-size: 30px;
-	font-weight: 500;
-	line-height: 36px;
-	margin-bottom: 50px;
+#text {
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+	
 }
 
 span {
-	color: rgba(0, 36, 168, 1);
+    color: rgba(0, 36, 168, 1);
 }
 
-#text-2{
-	font-size: 18px;
-	font-weight: 500;
-	line-height: 22px;
-	margin-bottom: 60px;
+#text-2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
 }
 
-#title-level{
-	font-size: 25px;
-	font-weight: 800;
-	line-height: 30.26px;
-	text-align: left;
-	text-underline-position: from-font;
-	text-decoration-skip-ink: none;
-	text-transform: uppercase;
-	text-align: center;
+#title-level {
+	margin-top: auto;
+    font-size: 1.7rem;
+    font-weight: 800;
+    line-height: 1.4;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .level-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .level-item-1, .level-item-2 {
-    display: flex; /* Делаем эти элементы флекс-контейнерами */
-    justify-content: space-between; /* Выравниваем содержимое по центру */
-    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 1rem;
 }
 
 .level-item-1 a, .level-item-2 a {
-    background: rgba(0, 121, 193, 1); /* Цвет фона кнопки */
+    background: rgba(0, 121, 193, 1);
 	width: 90px;
 	height: 50px;
-	border-radius: 40px;
-	display: flex; /* Делаем кнопки флекс-контейнерами */
-    justify-content: center; /* Выравниваем текст по горизонтали */
-    align-items: center; /* Выравниваем текст по вертикали */
-    text-align: center; /* Дополнительное выравнивание текста */
-
-	color: white;
-	font-size: 35px;
-	font-weight: 700;
-	text-decoration: none;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.08s ease-in-out, transform 0.1s ease-in-out;
 }
 
 .level-item-1 a:hover, .level-item-2 a:hover {
-    background: rgb(70, 175, 236); /* Цвет фона кнопки */
-	transform: scale(1.1);
-	transition: background-color 0.08s ease-in-out, transform 0.1s ease-in-out;
+    background: rgb(70, 175, 236);
+    transform: scale(1.1);
 }
-
-
-
-
-
-
-
-
-
