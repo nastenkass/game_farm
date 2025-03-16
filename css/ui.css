@@ -1,7 +1,7 @@
 #container
 {
-	width:calc(100% - 0px);
-	height: calc(100% - 0px);
+	width:100%;
+	height: 100vh;
 	border-radius: 0;
 	position: relative;
 }
@@ -111,18 +111,19 @@
     transform: translateX(-50%);
     padding: 10px;
     padding-top: 0;
-    width: 1600px;
-
+    width: 90%; /* Используем процент от ширины экрана */
+    max-width: 1600px; /* Ограничиваем максимальную ширину */
 }
 
-#choices-character{
+#choices-character {
     position: absolute;
     top: 30%;
-    left: 72%;
+    right: -15%; /* Ставим в центр по горизонтали */
     transform: translateX(-50%);
     padding: 10px;
     padding-top: 0;
-    width: 800px;
+    width: 70%; /* Задаем процент от ширины экрана */
+    max-width: 800px; /* Ограничиваем максимальную ширину */
 }
 
 /* choice */

@@ -9,14 +9,14 @@ body {
 
 .container {
     display: flex;
-    flex-wrap: nowrap; /* Колонки остаются в строке до активации медиазапроса */
-    gap: 20px; /* Расстояние между колонками */
-    width: 95%; /* Ширина контейнера равна 90% экрана */
-    margin: 40px auto; /* Центрируем контейнер и добавляем отступ сверху */
+    flex-wrap: nowrap; 
+    gap: 20px;
+    width: 95%; 
+    margin: 40px auto;
 }
 
 .column {
-    flex: 1 1 45%; /* Задает минимальную ширину колонки 45% и возможность увеличения */
+    flex: 1 1 45%;
     min-width: 300px; /* Минимальная ширина колонки */
     padding: 10px; /* Добавляем внутренние отступы для пространства вокруг контента */
     box-sizing: border-box; /* Включаем отступы в расчёт ширины */
@@ -27,19 +27,31 @@ body {
 }
 
 .second-column {
-    flex: 1 1 50%; /* Растягивается на половину экрана */
+    flex: 1 1.5 60%; /* Растягивается на половину экрана */
+    flex-basis: 50%;
+    max-width: 50%;
     padding: 10px;
     box-sizing: border-box;
+    display: flex; /* Добавляем flex-контейнер для центрирования */
+    justify-content: center;
+    align-items: center;
+}
+
+.second-column img {
+    max-width: 100%; /* Убедимся, что картинка не превышает размеры родителя */
+    height: auto; /* Сохранение пропорций */
+    object-fit: contain; /* Гарантирует, что изображение полностью отображается */
 }
 
 #logo img {
-    width: 200px;
+    height: 80px;
     margin-bottom: 30px;
+    margin-right: 50px;
     max-width: 100%;
 }
 
 #blue {
-    font-size: 1.5rem; /* Используем rem для гибкости размера */
+    font-size: 1.5rem;
     background-color: rgba(0, 121, 193, 1);
     display: inline-block;
     max-width: 40%;
