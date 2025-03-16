@@ -5,6 +5,10 @@ body {
     overflow: hidden;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;  /* Горизонтальное выравнивание */
+    align-items: center;      /* Вертикальное выравнивание */
+    min-height: 100vh;         /* Минимальная высота экрана для центрирования */
 }
 
 .container {
@@ -21,9 +25,9 @@ body {
     padding: 10px; /* Добавляем внутренние отступы для пространства вокруг контента */
     box-sizing: border-box; /* Включаем отступы в расчёт ширины */
 
-	display: flex;
+    display: flex;
     flex-direction: column;
-
+    justify-content: center;  /* Центрирование содержимого по вертикали */
 }
 
 .second-column {
@@ -50,31 +54,16 @@ body {
     max-width: 100%;
 }
 
-#blue {
-    font-size: 1.5rem;
-    background-color: rgba(0, 121, 193, 1);
-    display: inline-block;
-    max-width: 40%;
-    text-align: center;
-    padding: 0.75rem 1.5rem;
-    color: aliceblue;
-    border-radius: 50px;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-
-
-}
-
 #text {
     font-size: 1.7rem;
     font-weight: 500;
     line-height: 1.5;
     margin-bottom: 2rem;
-	
 }
 
 span {
-    color: rgba(0, 36, 168, 1);
+    color: rgba(0, 121, 193, 1);
+    font-weight: 700;
 }
 
 #text-2 {
@@ -85,7 +74,7 @@ span {
 }
 
 #title-level {
-	margin-top: auto;
+    margin-top: auto;
     font-size: 1.7rem;
     font-weight: 800;
     line-height: 1.4;
@@ -109,8 +98,8 @@ span {
 
 .level-item-1 a, .level-item-2 a {
     background: rgba(0, 121, 193, 1);
-	width: 90px;
-	height: 50px;
+    width: 90px;
+    height: 50px;
     border-radius: 40px;
     display: flex;
     justify-content: center;
