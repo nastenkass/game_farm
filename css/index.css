@@ -116,3 +116,72 @@ span {
     background: rgb(70, 175, 236);
     transform: scale(1.1);
 }
+
+@media (max-width: 1400px) {
+    #text {
+        font-size: 1.4rem; /* Уменьшаем размер текста */
+    }
+
+    #text-2 {
+        font-size: 1rem; /* Уменьшаем размер текста */
+    }
+
+    #title-level {
+        font-size: 1.2rem; /* Уменьшаем размер заголовка */
+    }
+
+    #logo img {
+        height: 60px;
+        margin-bottom: 30px;
+        margin-right: 50px;
+        max-width: 100%;
+    }
+
+    .level-item-1 a, .level-item-2 a {
+        font-size: 1.5rem; /* Уменьшаем размер шрифта на кнопках */
+        width: 80px; /* Уменьшаем ширину кнопок */
+        height: 45px; /* Уменьшаем высоту кнопок */
+    }
+
+    /* Уменьшаем расстояние между блоками .level-item-1 и .level-item-2 */
+    .level-item-1, .level-item-2 {
+        gap: 10px; /* Уменьшаем расстояние между элементами */
+    }
+
+    .level-container{
+        gap: 0px;
+    }
+}
+
+/* Медиазапрос для еще большего уменьшения на экранах меньше 1045px */
+@media (max-width: 1045px) {
+    #text {
+        font-size: 1.2rem; /* Уменьшаем размер текста */
+    }
+
+    #text-2 {
+        font-size: 0.8rem; /* Уменьшаем размер текста */
+    }
+
+    #title-level {
+        font-size: 1rem; /* Уменьшаем размер заголовка */
+    }
+
+    #logo img {
+        height: 40px;
+        margin-bottom: 30px;
+        margin-right: 50px;
+        max-width: 100%;
+    }
+
+    .level-item-1 a, .level-item-2 a {
+        font-size: 0.8rem; /* Уменьшаем размер шрифта на кнопках */
+        width: 50px; /* Уменьшаем ширину кнопок */
+        height: 30px; /* Уменьшаем высоту кнопок */
+    }
+
+    /* Уменьшаем расстояние между блоками .level-item-1 и .level-item-2 */
+    .level-item-1, .level-item-2 {
+        gap: 5px; /* Еще больше уменьшаем расстояние */
+    }
+}

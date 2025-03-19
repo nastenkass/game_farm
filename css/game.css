@@ -57,7 +57,19 @@ h1
 .shelf {
     display: flex;
     justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    width: 100%; /* Добавляем это свойство */
+    left: 0; /* Добавляем это свойство для правильного позиционирования */
+    padding: 0 20px; /* Опционально: добавляем отступы по бокам */
+    box-sizing: border-box; /* Чтобы padding не увеличивал общую ширину */
 }
+
+.shelf:nth-of-type(1) { margin-bottom: 70px; }
+.shelf:nth-of-type(2) { margin-bottom: 200px; }
+.shelf:nth-of-type(3) { margin-bottom: 340px; }
+.shelf:nth-of-type(4) { margin-bottom: 470px; }
+.shelf:nth-of-type(5) { margin-bottom: 610px; }
 
 .shelf img:nth-child(1) {
     margin-right: 6px;
@@ -81,13 +93,15 @@ h1
 }
 
 #shelfPopup {
-    width: 1358px;
-    height: 1005px;
+    position: fixed;
+    height: 100%;
+    width: calc(100% - 500px);
     border: 2px solid #333;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    background: none; /* Уберите, если не нужно изображение фона */
-    background-size: contain; /* Масштабирование для заполнения контейнера */
-    background-position: center; /* Центрирование изображения */
+    background-image: url('/medicines/shelf.png'); /* Путь к изображению */
+    background-size: cover; /* Заполняет весь блок */
+    background-position: center; /* Центрирует изображение */
+    background-repeat: no-repeat; /* Запрещает повторение */
 }
 
 #overlay-shelf {
@@ -99,19 +113,26 @@ h1
     background: rgba(0, 0, 0, 0.7);
     display: none;
     z-index: 1000;
+    
 }
 
 
 .confirm {
     font-family: 'Roboto Mono';
     font-size: 30px;
-    color: #11016d;
+    color: #ffffff;
     cursor: pointer;
     position: fixed;
-    top: 27%;
+    top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
+
+    background-color: #11016d;
+    opacity: 0.5;
+    padding: 10px 40px;
+    border-radius: 30px;
+    border: #fff 3px solid;
 }
 
 .hint-text{
@@ -163,7 +184,7 @@ h1
 }
 
 .close-btn:hover, .confirm:hover {
-    color: #8187e6;
+    opacity: 1;
 }
 
 .medicines {
@@ -264,23 +285,92 @@ h1
 
 
 
-@media (max-width: 1200px) {
+@media (max-width: 1600px) {
 
     #sceneContent {
         position: absolute;
         width: 100%;
         height: 100%;
         background-repeat: no-repeat !important;
-        background-size: calc(100% + 10px) cover !important; /* Увеличение ширины фона на 10 пикселей */
-        background-position: left -80px top !important; /* Сдвиг фона на 10 пикселей влево */
     }
 
-    #shelfPopup{
-        width: 500px;
-        background-repeat: no-repeat;
-        height: 100%;
-        clip-path: inset(0 0 450px 0);
+    #shelfPopup {
+        width: calc(100% - 300px);
+    }
+
+    .medicationImage{
+        
     }
 }
+
+@media (max-width: 1700px) {
+    .shelf:nth-of-type(1) { margin-bottom: 70px; }
+    .shelf:nth-of-type(2) { margin-bottom: 190px; }
+    .shelf:nth-of-type(3) { margin-bottom: 300px; }
+    .shelf:nth-of-type(4) { margin-bottom: 410px; }
+    .shelf:nth-of-type(5) { margin-bottom: 520px; }
+
+    .medicationImage {
+        max-height: 60px;
+    }
+
+    .confirm{
+        top: 25%;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 1500px) {
+    .shelf:nth-of-type(1) { margin-bottom: 30px; }
+    .shelf:nth-of-type(2) { margin-bottom: 140px; }
+    .shelf:nth-of-type(3) { margin-bottom: 260px; }
+    .shelf:nth-of-type(4) { margin-bottom: 380px; }
+    .shelf:nth-of-type(5) { margin-bottom: 500px; }
+
+    .medicationImage {
+        max-height: 50px;
+    }
+
+    .confirm{
+        top: 25%;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-height: 800px) {
+    .shelf:nth-of-type(1) { margin-bottom: 40px; }
+    .shelf:nth-of-type(2) { margin-bottom: 130px; }
+    .shelf:nth-of-type(3) { margin-bottom: 230px; }
+    .shelf:nth-of-type(4) { margin-bottom: 330px; }
+    .shelf:nth-of-type(5) { margin-bottom: 420px; }
+
+    .medicationImage {
+        max-height: 45px;
+    }
+
+    .confirm{
+        top: 25%;
+        font-size: 0.8rem;
+    }
+}
+
+
+/* @media (max-width: 1366px) {
+    .shelf:nth-of-type(1) { margin-bottom: 30px; }
+    .shelf:nth-of-type(2) { margin-bottom: 140px; }
+    .shelf:nth-of-type(3) { margin-bottom: 250px; }
+    .shelf:nth-of-type(4) { margin-bottom: 350px; }
+    .shelf:nth-of-type(5) { margin-bottom: 460px; }
+
+    .medicationImage {
+        max-height: 45px;
+    }
+
+    .confirm{
+        top: 27%;
+        font-size: 1.2rem;
+    }
+} */
+
 
 

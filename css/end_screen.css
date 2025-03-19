@@ -74,7 +74,6 @@ body {
     text-transform: capitalize;
     font-weight: 700;
     border: 3px white solid;
-    width: 20%;
     border-radius: 100px;
     padding: 5px 10px;
     transform: rotate(10deg);
@@ -92,7 +91,11 @@ body {
 
 .container-author{
     display: flex;
-    margin-top: 150px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 50px;
+    margin-left: 100px;
 }
 
 .photo img{
@@ -145,7 +148,6 @@ body {
     background-color: white;
     padding: 10px 20px;
     border-radius: 20px;
-    height: 50px;
     margin-left: auto;
 }
 
@@ -159,11 +161,16 @@ body {
 
 .container-qr {
     display: flex;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 200px;
+    margin-right: 100px;
+
+
     flex-direction: row;
     justify-content: space-between; /* This will push the text to the bottom */
-    margin-top: 200px;
     height: 100%; /* Ensure the container takes full height available */
-    margin-bottom: 160px;
 }
 
 .text-qr {
@@ -201,4 +208,74 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 135px; /* Adjust the width as needed */
+}
+
+
+@media (max-width: 1600px) {
+
+    .text-1{
+        font-size: 1.4rem;
+    }
+
+    .text-2{
+        font-size: 3rem;
+        line-height: 60px;
+    }
+
+    .text-3{
+        font-size: 1.6rem;
+    }
+
+    .text-4{
+        font-size: 1.4rem;
+    }
+
+    .photo img{
+        width: 70px;
+    }
+
+    .name{
+        font-size: 1.2rem;
+    }
+    
+    .regalia{
+        font-size: 1rem;
+    }
+
+    .container-button a{
+        font-size: 2rem;
+        width: 320px;
+    }
+}
+
+@media (max-width: 1425px) {
+
+    .text-1{
+        font-size: 1.4rem;
+    }
+
+    .text-2{
+        font-size: 2.6rem;
+        line-height: 50px;
+    }
+
+    .text-3{
+        font-size: 1.4rem;
+    }
+
+    .text-4{
+        font-size: 1.3rem;
+    }
+
+    .photo img{
+        width: 70px;
+    }
+
+    .name{
+        font-size: 1.2rem;
+    }
+    
+    .regalia{
+        font-size: 1rem;
+    }
 }

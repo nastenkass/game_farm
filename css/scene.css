@@ -26,15 +26,5 @@
 }
 
 @media (max-width: 1200px) {
-    .character{
-		left: 150px;
-		width:250px;
-		top: 200px;
-	}
-
-	#container[character="noname"] .character {
-		left: 100px;
-		top: 160px;
-	}
 
 }

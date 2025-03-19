@@ -245,9 +245,9 @@ function openShelfPopup() {
     overlay.append(hintText);
 
     // Добавляем фоновую картинку
-    popup.css({
-        'background-image': 'url(medicines/shelf.png)',
-    });
+    // popup.css({
+        
+    // });
 
     // Добавляем обработчик для закрытия попапа
     $('#closeShelfPopup, .close-btn').on('click', function () {
@@ -493,14 +493,11 @@ function generateShelves() {
         // Добавьте другие препараты с соответствующими названиями и изображениями
     ];
 
-    var shelfHeights = [340, 60, 60, 60, 60];
-
     medications = shuffleArray(medications);
 
     // Создаем 5 полок
     for (var i = 0; i < 5; i++) {
         var shelf = $('<div class="shelf"></div>');
-        shelf.css('margin-top', shelfHeights[i] + 'px');
     
         // Добавляем препараты на полку
         var remainingWidth = 100;
@@ -575,7 +572,7 @@ function generateShelves() {
         shelfPopup.append(shelf);
     }
 
-    shelfPopup.on('dblclick', '.medicationImage', function () {
+    shelfPopup.on('click', '.medicationImage', function () {
         var medicationImage = $(this);
         var medicationName = medicationImage.attr('alt');
         var targetY = 70; // Target Y coordinate

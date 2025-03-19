@@ -118,12 +118,12 @@
 #choices-character {
     position: absolute;
     top: 30%;
-    right: -15%; /* Ставим в центр по горизонтали */
-    transform: translateX(-50%);
+    right: 0; /* Прижимаем блок к правому краю */
     padding: 10px;
     padding-top: 0;
-    width: 70%; /* Задаем процент от ширины экрана */
-    max-width: 800px; /* Ограничиваем максимальную ширину */
+    width: 60%;
+    max-width: 800px;
+    margin-right: 100px;
 }
 
 /* choice */
@@ -390,33 +390,14 @@
 }
 
 
-@media (max-width: 1200px) {
-    #pc {
-        position: absolute;
-        top: 50%; /* Центрирование по вертикали */
-        left: 0; /* Устанавливаем в 0 для выравнивания по левому краю */
-        transform: translateY(-50%); /* Сдвиг вверх на половину высоты */
-    }
-    
-    #pc img {
-        width: 175px; /* Задайте нужную ширину */
-        display: block;
-        max-width: 100%; /* Адаптация под размер экрана */
-        height: auto; /* Сохранение пропорций */
+@media (max-width: 1500px) {
+
+    .choice {
+        font-size: 0.8em;
     }
 
     #choices-character{
-        width: 200px;
-        left: 30%;
+        max-width: 600px;
+        margin-right: 80px;
     }
-
-    #choices {
-        width: 100%;
-    
-    }
-
-    .choice{
-        font-size: 10px;
-    }
-
 }
