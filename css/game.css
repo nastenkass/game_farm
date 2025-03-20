@@ -43,13 +43,70 @@ h1
     max-height: 65px;
 }
 
-.medicationImage.checked {
-    display: block;
+
+#selectedMedicationsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 равные ячейки */
+    grid-template-rows: 100px; /* Высота ряда */
+    gap: 150px; /* Расстояние между картинками */
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    z-index: 1000;
+    transform: translateX(-50%);
+    width: 800px;
 }
 
-/* Добавьте стили для .medicationImage.checked */
-.medicationImage.checked {
- max-height: 85px;
+#selectedMedicationsContainer .medicationImage {
+    display: block; /* Чтобы изображение вело себя как блочный элемент */
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain; /* Чтобы изображение масштабировалось без искажений */
+}
+
+/* Для первой картинки: размещаем в начале */
+#selectedMedicationsContainer .medicationImage:nth-child(1) {
+    grid-column: 1; /* Первая ячейка */
+}
+
+/* Для второй картинки: размещаем по центру */
+#selectedMedicationsContainer .medicationImage:nth-child(2) {
+    grid-column: 2; /* Вторая ячейка */
+}
+
+/* Для третьей картинки: размещаем в конце */
+#selectedMedicationsContainer .medicationImage:nth-child(3) {
+    grid-column: 3; /* Третья ячейка */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease-out forwards;
 }
 
 
@@ -145,7 +202,7 @@ h1
 }
 
 .hint-text img{
-    width: 65px;
+    width: 45px;
 }
 
 .tooltip-text {
@@ -247,18 +304,16 @@ h1
     padding-bottom: 5px;
 }
 
-.medicationDescription1{
-    display: none;
+.medicationDescription1 {
     position: absolute;
-    left: 0;
-    width: 200px;
-    height: 98px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.9);
     padding: 10px;
-    box-sizing: border-box;
-    text-align: left;
-    position: absolute;
-    font-size: 14px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1000; /* Убедись, что блок выше других элементов */
+    max-width: 200px;
+    word-wrap: break-word;
 }
 
 #overlay-blocking {
@@ -318,6 +373,21 @@ h1
         top: 25%;
         font-size: 1.2rem;
     }
+
+    #selectedMedicationsContainer {
+        gap: 90px; /* Расстояние между картинками */
+        top: 70px;
+        width: 800px;
+    }
+
+    .hint-text{
+        top: 12%;
+        left: 20%;
+    }
+    
+    .hint-text img{
+        width: 45px;
+    }
 }
 
 @media (max-width: 1500px) {
@@ -335,6 +405,21 @@ h1
         top: 25%;
         font-size: 1.2rem;
     }
+
+    #selectedMedicationsContainer {
+        gap: 90px; /* Расстояние между картинками */
+        top: 70px;
+        width: 800px;
+    }
+
+    .hint-text{
+        top: 12%;
+        left: 16%;
+    }
+    
+    .hint-text img{
+        width: 45px;
+    }
 }
 
 @media (max-height: 800px) {
@@ -351,6 +436,12 @@ h1
     .confirm{
         top: 25%;
         font-size: 0.8rem;
+    }
+
+    #selectedMedicationsContainer {
+        gap: 40px; /* Расстояние между картинками */
+        top: 70px;
+        width: 800px;
     }
 }
 

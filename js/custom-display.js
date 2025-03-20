@@ -241,7 +241,7 @@ function openShelfPopup() {
     var confirmCheckbox = $('<div class="confirm">Выбрать</div>');
     overlay.append(confirmCheckbox);
 
-    var hintText = $('<div class="hint-text"> <img src="img/hint.svg"> <span class="tooltip-text">Нажми два раза ЛКМ по упаковке, чтобы выбрать или отменить выбор</span> </div>');
+    var hintText = $('<div class="hint-text"> <img src="img/hint.svg"> <span class="tooltip-text">Нажми ЛКМ по упаковке, чтобы выбрать или отменить выбор</span> </div>');
     overlay.append(hintText);
 
     // Добавляем фоновую картинку
@@ -270,77 +270,63 @@ function openShelfPopup() {
 
 function showSelectedMedications() {
     var level = window.currentLevel;
-    console.log("Текущий уровень в начале showSelectedMedications:", level); // Выводим значение level при начале функции
+    console.log("Текущий уровень в начале showSelectedMedications:", level);
 
-    var selectedMeds = $('.medicationImage.checked').map(function () {
+    // Очищаем массив перед обновлением
+    var selectedMeds = [];
+
+    // Наполняем массив актуальными значениями
+    selectedMeds = $('.medicationImage.fade-in').map(function () {
         return $(this).attr('alt');
     }).get();
+
+    console.log("Выбранные препараты после обновления:", selectedMeds);
 
     var correctMedications = [];
     if (level == 1) {
         correctMedications = ['Но-шпа', 'Тримедат', 'Иберогаст'];
-        console.log("Уровень 1 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 2) {
         correctMedications = ['Тизин', 'Виброцил', 'Називин', 'Аквамарис', 'Сиалор аква', 'Фликсоназе'];
-        console.log("Уровень 2 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 3) {
         correctMedications = ['Амиксин', 'Гриппферон', 'Виферон', 'Ингавирин', 'Циклоферон'];
-        console.log("Уровень 3 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 4) {
         correctMedications = ['Пантенол', 'Банеоцин', 'Бепантен'];
-        console.log("Уровень 4 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 5) {
         correctMedications = ['Афобазол', 'Персен', 'Новопассит', "Тенотен"];
-        console.log("Уровень 5 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 6) {
         correctMedications = ['Супрадин', 'Ундевит', 'Берокка', 'Пентовит'];
-        console.log("Уровень 6 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 7) {
         correctMedications = ['Нурофен', 'Вольтарен', 'Кеторол', 'Найз_активгель'];
-        console.log("Уровень 7 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 8) {
         correctMedications = ['Фитолизин', 'Канефрон', 'Цистон'];
-        console.log("Уровень 8 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 9) {
         correctMedications = ['Глюкофаж', 'Мерифатин', 'Метформин'];
-        console.log("Уровень 9 выбран, ожидаемые препараты:", correctMedications);
     } else if (level == 10) {
         correctMedications = ['Аторвастатин', 'Аторис', 'Липримар'];
-        console.log("Уровень 10 выбран, ожидаемые препараты:", correctMedications);
     }
-    
+
     console.log("Выбранные препараты:", selectedMeds);
     
     var isCorrectSelection = false;
     if (level == 3) {
-        // Проверка для уровня 3
         isCorrectSelection =
             selectedMeds.length === 3 &&
             selectedMeds.includes('Амиксин') &&
-            selectedMeds.filter(function (med) {
-                return correctMedications.includes(med);
-            }).length === 3;
-    } else if (level == 5){
+            selectedMeds.filter(med => correctMedications.includes(med)).length === 3;
+    } else if (level == 5) {
         isCorrectSelection =
             selectedMeds.length === 3 &&
             selectedMeds.includes('Афобазол') &&
-            selectedMeds.filter(function (med) {
-                return correctMedications.includes(med);
-            }).length === 3;
-    } else if (level == 6){
+            selectedMeds.filter(med => correctMedications.includes(med)).length === 3;
+    } else if (level == 6) {
         isCorrectSelection =
             selectedMeds.length === 3 &&
             selectedMeds.includes('Супрадин') &&
-            selectedMeds.filter(function (med) {
-                return correctMedications.includes(med);
-            }).length === 3;
+            selectedMeds.filter(med => correctMedications.includes(med)).length === 3;
     } else {
-        // Общая проверка для других уровней
         isCorrectSelection = 
             selectedMeds.length === 3 && 
-            selectedMeds.every(function (med) {
-                return correctMedications.includes(med);
-            });
+            selectedMeds.every(med => correctMedications.includes(med));
     }
 
     if (selectedMeds.length < 3) {
@@ -352,7 +338,6 @@ function showSelectedMedications() {
         blockBackground();
     } else {
         console.log("Правильный выбор препаратов:", selectedMeds);
-        // showModal('Вы выбрали: ' + selectedMeds.join(', '));
     }
 }
 
@@ -525,38 +510,55 @@ function generateShelves() {
     
                 medicationContainer.hover(
                     function (e) {
-                        // Start the timer when mouse enters
                         timer = setTimeout(function() {
-                            // Показываем описание
+                            $('body').append(description); // Вставляем в body
                             description.fadeIn(300);
-    
-                            // Вычисляем размеры описания
-                            var descriptionWidth = description.width();
-                            var descriptionHeight = description.height();
-    
-                            // Рассчитываем смещение относительно курсора
-                            var offsetX = -descriptionWidth; // Регулируйте расстояние от курсора по горизонтали
-                            var offsetY = -descriptionHeight + 100; // Регулируйте расстояние от курсора по вертикали
-    
-                            // Устанавливаем позицию описания рядом с курсором
+                
+                            var offsetX = 10; // Отступ справа от курсора
+                            var offsetY = 10; // Отступ снизу от курсора
+                
+                            // Устанавливаем изначальную позицию
                             description.css({
                                 top: e.pageY + offsetY + 'px',
                                 left: e.pageX + offsetX + 'px',
+                                position: 'absolute'
                             });
-    
-                            // Делаем описание некликальным
-                            description.css('pointer-events', 'none');
-                        }, 400); // Delay for 1 second
+                
+                            // Получаем размеры окна браузера
+                            var windowWidth = $(window).width();
+                            var windowHeight = $(window).height();
+                
+                            // Получаем размеры описания
+                            var descriptionWidth = description.outerWidth();
+                            var descriptionHeight = description.outerHeight();
+                
+                            // Рассчитываем позицию
+                            var posX = e.pageX + offsetX;
+                            var posY = e.pageY + offsetY;
+                
+                            // Если описание выходит за правый край экрана
+                            if (posX + descriptionWidth > windowWidth) {
+                                posX = windowWidth - descriptionWidth - 10; // Выравниваем по правому краю
+                            }
+                
+                            // Если описание выходит за нижний край экрана
+                            if (posY + descriptionHeight > windowHeight) {
+                                posY = windowHeight - descriptionHeight - 10; // Выравниваем по нижнему краю
+                            }
+                
+                            // Устанавливаем скорректированную позицию
+                            description.css({
+                                top: posY + 'px',
+                                left: posX + 'px'
+                            });
+                
+                        }, 400);
                     },
                     function () {
-                        // Clear the timer when mouse leaves
                         clearTimeout(timer);
-    
-                        // Скрываем описание
-                        description.fadeOut(100);
-    
-                        // Восстанавливаем обработку клика после скрытия описания
-                        description.css('pointer-events', 'auto');
+                        description.fadeOut(100, function() {
+                            description.remove(); // Удаляем из body
+                        });
                     }
                 );
     
@@ -571,61 +573,81 @@ function generateShelves() {
 
         shelfPopup.append(shelf);
     }
-
+    
+    if ($('#selectedMedicationsContainer').length === 0) {
+        $('#shelfPopup').append('<div id="selectedMedicationsContainer"></div>');
+    }
+    
     shelfPopup.on('click', '.medicationImage', function () {
         var medicationImage = $(this);
         var medicationName = medicationImage.attr('alt');
-        var targetY = 70; // Target Y coordinate
-        var imageWidth = 330; // Width of each image
-        var selectedCount = selectedMedications.length;
-        var offset = 300; // Initial offset for the first image
-    
-        // Проверяем, был ли уже отмечен этот препарат
-        var index = selectedMedications.indexOf(medicationName);
-    
-        if (index === -1) {
-            // Check if the limit of 3 selected images is reached
-            if (selectedMedications.length >= 3) {
-                alert("You can only select up to 3 medications.");
-                return;
-            }
-    
-            // Препарат не отмечен, добавляем галочку и сохраняем в массив
-            medicationImage.addClass('checked');
-            selectedMedications.push(medicationName);
-    
-            // Calculate the new left position
-            var targetX = selectedCount * imageWidth + offset;
-    
-            // Move the image to the target coordinates with animation
-            medicationImage.css('position', 'absolute').animate({
-                top: targetY,
-                left: targetX
-            }, 500); // 500 is the animation duration in milliseconds
-        } else {
-            // Препарат уже отмечен, убираем галочку и удаляем из массива
+        var selectedContainer = $('#selectedMedicationsContainer');
+        var existingImage = selectedContainer.find(`img[alt="${medicationName}"]`);
+        
+        // Если изображение уже есть в контейнере — удаляем его
+        if (existingImage.length > 0) {
+            existingImage.addClass('fade-out').on('animationend', function () {
+                $(this).remove();
+            });
             medicationImage.removeClass('checked');
-            selectedMedications.splice(index, 1);
-    
-            // Reset the image position
-            medicationImage.css({
-                'position': 'static',
-                'top': 'auto',
-                'left': 'auto'
-            });
-    
-            // Adjust the positions of the remaining selected images
-            $.each(selectedMedications, function(index, name) {
-                var img = $('.medicationImage[alt="' + name + '"]');
-                var newX = index * imageWidth + offset;
-                img.animate({
-                    left: newX
-                }, 500);
-            });
+            return;
         }
     
-        updateCheckmarksVisibility();
+        // Проверяем, можно ли добавить новую картинку (не более 3)
+        if (selectedContainer.children().length >= 3) {
+            alert("You can only select up to 3 medications.");
+            return;
+        }
+    
+        // Добавляем картинку в контейнер
+        var clonedImage = medicationImage.clone().removeClass('checked');
+    
+        clonedImage.on('click', function () {
+            $(this).addClass('fade-out').on('animationend', function () {
+                $(this).remove();
+            });
+            medicationImage.removeClass('checked');
+        });
+    
+        clonedImage.addClass('fade-in');
+        selectedContainer.append(clonedImage);
+        medicationImage.addClass('checked');
     });
+}
+
+function removeMedication(medicationName) {
+    medicationName = medicationName.trim();
+    var index = selectedMedications.indexOf(medicationName);
+
+    if (index !== -1) {
+        console.log("Before removal:", selectedMedications);
+        
+        // Удаляем элемент из массива
+        selectedMedications.splice(index, 1);
+        
+        console.log("After removal:", selectedMedications);
+
+        // Находим изображение в контейнере
+        var imageToRemove = $('#selectedMedicationsContainer').find(`img[alt="${medicationName}"]`);
+
+        if (imageToRemove.length > 0) {
+            // Отключаем обработчик, чтобы избежать повторных вызовов
+            imageToRemove.off('click');
+
+            // Добавляем анимацию исчезновения
+            imageToRemove.addClass('fade-out');
+
+            // Удаляем элемент после завершения анимации
+            imageToRemove.on('animationend', function () {
+                $(this).remove();
+            });
+        }
+
+        // Убираем выделение у исходной картинки
+        $('.medicationImage[alt="' + medicationName + '"]').removeClass('checked');
+    } else {
+        console.warn("Medication not found in array:", medicationName);
+    }
 }
 
 function updateCheckmarksVisibility() {
@@ -634,9 +656,11 @@ function updateCheckmarksVisibility() {
         var medicationName = medicationImage.attr('alt');
         var isChecked = selectedMedications.indexOf(medicationName) !== -1;
 
+        // Обновляем состояние галочки на оригинальной картинке
         medicationImage.toggleClass('checked', isChecked);
     });
 }
+
 
 // Функция для случайного перемешивания массива
 function shuffleArray(array) {
